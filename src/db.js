@@ -1,14 +1,13 @@
-const mongoose = require("mongoose"); // ORM -> mongodb
-
-const MONGO_URI = "mongodb://localhost:27017/shipnow";
+const mongoose = require('mongoose'); // ORM -> mongodb
+const config = require('./config');
 
 async function connectDB() {
   try {
-    await mongoose.connect(MONGO_URI);
-    console.log("Conectado a MongoDB:", MONGO_URI);
+    await mongoose.connect(config.MONGO_URI);
+    console.log('Conectado a MongoDB:', config.MONGO_URI);
   } catch (error) {
     // Manejo de errores crudo: solo logueamos y matamos el proceso.
-    console.log("Error al conectar a MongoDB:", error.message);
+    console.log('Error al conectar a MongoDB:', error.message);
     process.exit(1);
   }
 }
