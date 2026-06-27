@@ -4,6 +4,8 @@ const connectDB = require("./db");
 const ordersRouter = require("./routes/orders");
 const usersRouter = require("./routes/users");
 const couriersRouter = require("./routes/couriers");
+const productsRouter = require("./routes/products");
+const deliveriesRouter = require("./routes/deliveries");
 
 // DEUDA TECNICA (Modulo 1): PORT y SECRET estan HARDCODEADOS.
 // Deberian venir de variables de entorno (.env + dotenv) y de una capa de config.
@@ -19,6 +21,8 @@ app.use(express.json());
 app.use("/api/orders", ordersRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/couriers", couriersRouter);
+app.use("/api/products", productsRouter);
+app.use("/api/deliveries", deliveriesRouter);
 
 // Ruta de health check basica.
 app.get("/", (req, res) => {
