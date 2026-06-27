@@ -1,8 +1,5 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose"); // ORM -> mongodb
 
-// DEUDA TECNICA (Modulo 1): la URI de conexion esta HARDCODEADA.
-// Deberia leerse desde una variable de entorno (process.env.MONGO_URI)
-// y centralizarse en una capa de configuracion. Esto se corrige en el Modulo 1.
 const MONGO_URI = "mongodb://localhost:27017/shipnow";
 
 async function connectDB() {

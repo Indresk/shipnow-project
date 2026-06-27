@@ -7,10 +7,8 @@ const couriersRouter = require("./routes/couriers");
 const productsRouter = require("./routes/products");
 const deliveriesRouter = require("./routes/deliveries");
 
-// DEUDA TECNICA (Modulo 1): PORT y SECRET estan HARDCODEADOS.
-// Deberian venir de variables de entorno (.env + dotenv) y de una capa de config.
 const PORT = 8080;
-const SECRET = "super-secret-shipnow-key-123"; // fake secret / api key hardcodeada
+const SECRET = "super-secret-shipnow-key-123"; 
 
 const app = express();
 
