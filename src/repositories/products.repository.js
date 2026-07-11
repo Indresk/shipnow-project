@@ -2,7 +2,7 @@ const Product = require('../models/product');
 
 class ProductsRepository {
 	static async create({ name, price, stock, status }) {
-		const newProd = Product.create({
+		const newProd = await Product.create({
 			name,
 			price,
 			stock,
@@ -18,8 +18,8 @@ class ProductsRepository {
 	}
 
 	static async findById(id) {
-		const products = await Product.findById(id);
-		return products;
+		const product = await Product.findById(id);
+		return product;
 	}
 }
 

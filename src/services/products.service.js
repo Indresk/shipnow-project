@@ -6,7 +6,7 @@ class ProductsService {
 		name,
 		price,
 		stock = 0,
-		status = PRODUCT_STATUS.SOLD_OUT,
+		status = PRODUCT_STATUS.OUT_OF_STOCK,
 	}) {
 		if (!name || price === undefined)
 			throw new Error('Faltan datos obligatorios del producto');

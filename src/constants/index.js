@@ -5,7 +5,7 @@ const USER_ROLES = {
 
 const PRODUCT_STATUS = {
 	AVAILABLE: 'available',
-	SOLD_OUT: 'sold-out',
+	OUT_OF_STOCK: 'out_of_stock',
 };
 
 module.exports = {
