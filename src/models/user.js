@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
-const { USER_ROLES } = require('../utils/constants');
+const { USER_ROLES } = require('../constants');
 
 // Modelo de User (cliente).
 const userSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true },
-  role: { type: String, default: USER_ROLES.USER }, // customer | admin
+	name: { type: String, required: true },
+	email: { type: String, required: true },
+	role: { type: String, default: USER_ROLES.USER }, // user | admin
 });
 
 module.exports = mongoose.model('User', userSchema);
