@@ -1,5 +1,4 @@
 const UserService = require('../services/users.service');
-const User = require('../models/user');
 
 class UserController {
 	static async create(req, res) {

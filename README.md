@@ -2,7 +2,7 @@
 
 ## Como correr localmente este proyecto
 
-Requisitos: Node.js y setear previamente las varables de entorno con la MONGO_URI.
+Requisitos: Node.js y setear previamente las varables de entorno con la MONGODB_URI.
 
 ```bash
 # 1. Instalar dependencias

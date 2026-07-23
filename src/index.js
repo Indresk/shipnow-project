@@ -1,12 +1,14 @@
 const express = require('express');
 const config = require('./config');
 const connectDB = require('./db');
+const { ENVIRONMENT } = require('./constants');
 
 const ordersRouter = require('./routes/orders');
 const usersRouter = require('./routes/users');
 const couriersRouter = require('./routes/couriers');
 const productsRouter = require('./routes/products');
 const deliveriesRouter = require('./routes/deliveries');
+const mocksRouter = require('./routes/mocks');
 
 const app = express();
 
@@ -20,14 +22,18 @@ app.use('/api/couriers', couriersRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/deliveries', deliveriesRouter);
 
+// Mocks
+
+if (config.NODE_ENV === ENVIRONMENT.DEV) app.use('/api/mocks', mocksRouter);
+
 // Ruta de health check basica.
 app.get('/', (req, res) => {
-  res.send('ShipNow API v1 - corriendo');
+	res.send('ShipNow API v1 - corriendo');
 });
 
 // Conectamos a la base y levantamos el server.
 connectDB();
 
 app.listen(config.PORT, () => {
-  console.log('ShipNow escuchando en el puerto ' + config.PORT);
+	console.log('ShipNow escuchando en el puerto ' + config.PORT);
 });

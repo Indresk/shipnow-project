@@ -2,7 +2,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const REQUIRES_ENV_VARS = ['PORT', 'NODE_ENV', 'MONGO_URI'];
+const REQUIRES_ENV_VARS = ['PORT', 'NODE_ENV', 'MONGODB_URI'];
 
 for (const key of REQUIRES_ENV_VARS) {
 	if (!process.env[key]) {
@@ -13,7 +13,9 @@ for (const key of REQUIRES_ENV_VARS) {
 const config = {
 	PORT: process.env.PORT,
 	NODE_ENV: process.env.NODE_ENV,
-	MONGO_URI: process.env.MONGO_URI,
+	MONGODB_URI: process.env.MONGODB_URI,
 };
+
+Object.freeze(config);
 
 module.exports = config;
