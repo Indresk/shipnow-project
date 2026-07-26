@@ -19,19 +19,31 @@ const ORDER_PRIORITY = {
 	HIGH: 'high',
 };
 
+const DELIVERY_STATUS = {
+	ASSIGNED: 'assigned',
+	IN_TRANSIT: 'in_transit',
+	DELIVERED: 'delivered',
+};
+
 const ENVIRONMENT = {
 	PROD: 'production',
 	DEV: 'development',
 };
 
-[USER_ROLES, PRODUCT_STATUS, ORDER_STATUS, ORDER_PRIORITY, ENVIRONMENT].forEach(
-	Object.freeze,
-);
+[
+	USER_ROLES,
+	PRODUCT_STATUS,
+	ORDER_STATUS,
+	ORDER_PRIORITY,
+	DELIVERY_STATUS,
+	ENVIRONMENT,
+].forEach(Object.freeze);
 
 module.exports = {
 	USER_ROLES,
 	PRODUCT_STATUS,
 	ORDER_STATUS,
 	ORDER_PRIORITY,
+	DELIVERY_STATUS,
 	ENVIRONMENT,
 };
