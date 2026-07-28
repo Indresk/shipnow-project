@@ -9,7 +9,7 @@ class CourierMockService {
 		const fakeCourier = {
 			name: `${firstName} ${lastName}`,
 			zone: faker.location.country(),
-			available: faker.datatype.boolean,
+			available: faker.datatype.boolean(),
 		};
 
 		return fakeCourier;
@@ -28,6 +28,13 @@ class CourierMockService {
 	static async insert(fakeArray) {
 		const cuoriers = await CouriersRepository.insertMany(fakeArray);
 		return cuoriers;
+	}
+
+	static async generateAndInsert(amount) {
+		const generated = await this.generateMultiple(amount);
+		const inserted = await this.insert(generated);
+
+		return inserted;
 	}
 }
 

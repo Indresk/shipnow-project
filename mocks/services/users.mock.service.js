@@ -10,7 +10,7 @@ class UserMockService {
 		const fakeUser = {
 			name: `${firstName} ${lastName}`,
 			email: faker.internet.email({ firstName, lastName }),
-			role: faker.helpers.arrayElement(USER_ROLES),
+			role: faker.helpers.objectValue(USER_ROLES),
 		};
 
 		return fakeUser;
@@ -29,6 +29,13 @@ class UserMockService {
 	static async insert(fakeArray) {
 		const users = await UserRepository.insertMany(fakeArray);
 		return users;
+	}
+
+	static async generateAndInsert(amount) {
+		const generated = await this.generateMultiple(amount);
+		const inserted = await this.insert(generated);
+
+		return inserted;
 	}
 }
 

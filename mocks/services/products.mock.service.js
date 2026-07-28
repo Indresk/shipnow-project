@@ -8,7 +8,7 @@ class ProductMockService {
 			name: faker.commerce.product(),
 			price: faker.number.int({ min: 1000, max: 100000 }),
 			stock: faker.number.int({ min: 10, max: 1000 }),
-			status: faker.helpers.arrayElement(PRODUCT_STATUS),
+			status: faker.helpers.objectValue(PRODUCT_STATUS),
 		};
 
 		return fakeProduct;
@@ -27,6 +27,13 @@ class ProductMockService {
 	static async insert(fakeArray) {
 		const products = await ProductsRepository.insertMany(fakeArray);
 		return products;
+	}
+
+	static async generateAndInsert(amount) {
+		const generated = await this.generateMultiple(amount);
+		const inserted = await this.insert(generated);
+
+		return inserted;
 	}
 }
 

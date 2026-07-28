@@ -19,7 +19,11 @@ npm run dev
 
 ## Cómo armar el .env para correr este proyecto
 
-El .env debe seguir la estrucutra propuesta en el archivo .env.example.
+El .env debe seguir la estrucutra propuesta en el archivo [.env.example](./.env.example).
+
+## Testing de API endpoints con herramientas como Postman
+
+En el folder "testing" se encuentran los archivos de coleccion para importar en [Postman](./testing/ShipNow%20API%20v1%20-%20Postman%20Collection.json) o Bruno y poder testear los endpoints de la API.
 
 ## Porque se separó la logica
 
