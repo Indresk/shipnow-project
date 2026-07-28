@@ -1,18 +1,25 @@
-const Courier = require('../models/courier');
+import Courier from '../models/courier.js';
 
 class CouriersRepository {
 	static async getAll() {
-		const deliveries = await Courier.find();
-		return deliveries;
+		const couriers = await Courier.find();
+		return couriers;
 	}
+
 	static async getById(id) {
-		const delivery = await Courier.findById(id);
-		return delivery;
+		const courier = await Courier.findById(id);
+		return courier;
 	}
+
 	static async create({ name, zone, available }) {
-		const delivery = await Courier.create({ name, zone, available });
-		return delivery;
+		const courier = await Courier.create({ name, zone, available });
+		return courier;
+	}
+
+	static async insertMany(couriers) {
+		const newCouriers = await Courier.insertMany(couriers);
+		return newCouriers;
 	}
 }
 
-module.exports = CouriersRepository;
+export default CouriersRepository;

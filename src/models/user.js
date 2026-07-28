@@ -1,11 +1,15 @@
-const mongoose = require('mongoose');
-const { USER_ROLES } = require('../constants');
+import mongoose from 'mongoose';
+import { USER_ROLES } from '../constants/index.js';
 
 // Modelo de User (cliente).
 const userSchema = new mongoose.Schema({
 	name: { type: String, required: true },
 	email: { type: String, required: true },
-	role: { type: String, default: USER_ROLES.USER }, // user | admin
+	role: {
+		type: String,
+		enum: Object.values(USER_ROLES),
+		default: USER_ROLES.USER,
+	}, // user | admin
 });
 
-module.exports = mongoose.model('User', userSchema);
+export default mongoose.model('User', userSchema);

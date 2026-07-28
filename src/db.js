@@ -1,5 +1,5 @@
-const mongoose = require('mongoose'); // ORM -> mongodb
-const config = require('./config');
+import mongoose from 'mongoose';
+import config from './config/index.js';
 
 async function connectDB() {
 	try {
@@ -12,4 +12,4 @@ async function connectDB() {
 	}
 }
 
-module.exports = connectDB;
+export default connectDB;

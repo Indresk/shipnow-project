@@ -1,5 +1,5 @@
-const OrdersService = require('../services/orders.service');
-const sendNotification = require('../services/notifications');
+import OrdersService from '../services/orders.service.js';
+import sendNotification from '../services/notifications.js';
 
 class OrdersController {
 	static async create(req, res) {
@@ -81,4 +81,4 @@ class OrdersController {
 	}
 }
 
-module.exports = OrdersController;
+export default OrdersController;

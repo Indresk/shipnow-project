@@ -1,5 +1,5 @@
-const User = require('../models/user');
-const { USER_ROLES } = require('../constants');
+import User from '../models/user.js';
+import { USER_ROLES } from '../constants/index.js';
 
 class UserRepository {
 	static async create({ name, email, role }) {
@@ -21,6 +21,11 @@ class UserRepository {
 		const user = await User.findById(id);
 		return user;
 	}
+
+	static async insertMany(users) {
+		const newUsers = await User.insertMany(users);
+		return newUsers;
+	}
 }
 
-module.exports = UserRepository;
+export default UserRepository;

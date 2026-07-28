@@ -1,7 +1,7 @@
-const express = require('express');
-const router = express.Router();
+import express from 'express';
+import UserController from '../controller/user.controller.js';
 
-const UserController = require('../controller/user.controller');
+const router = express.Router();
 
 // POST /api/users -> crea un cliente
 router.post('/', UserController.create);
@@ -12,4 +12,4 @@ router.get('/', UserController.getAll);
 // GET /api/users/:id -> obtiene un cliente por id
 router.get('/:id', UserController.getById);
 
-module.exports = router;
+export default router;

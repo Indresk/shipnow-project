@@ -1,14 +1,14 @@
-const express = require('express');
-const config = require('./config');
-const connectDB = require('./db');
-const { ENVIRONMENT } = require('./constants');
+import express from 'express';
+import config from './config/index.js';
+import connectDB from './db.js';
+import { ENVIRONMENT } from './constants/index.js';
 
-const ordersRouter = require('./routes/orders');
-const usersRouter = require('./routes/users');
-const couriersRouter = require('./routes/couriers');
-const productsRouter = require('./routes/products');
-const deliveriesRouter = require('./routes/deliveries');
-const mocksRouter = require('./routes/mocks');
+import ordersRouter from './routes/orders.js';
+import usersRouter from './routes/users.js';
+import couriersRouter from './routes/couriers.js';
+import productsRouter from './routes/products.js';
+import deliveriesRouter from './routes/deliveries.js';
+import mocksRouter from './routes/mocks.js';
 
 const app = express();
 

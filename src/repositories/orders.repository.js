@@ -1,4 +1,4 @@
-const Order = require('../models/order');
+import Order from '../models/order.js';
 
 class OrdersRepository {
 	static async create({
@@ -46,6 +46,11 @@ class OrdersRepository {
 
 		return orderUpdated;
 	}
+
+	static async insertMany(orders) {
+		const newOrders = await Order.insertMany(orders);
+		return newOrders;
+	}
 }
 
-module.exports = OrdersRepository;
+export default OrdersRepository;

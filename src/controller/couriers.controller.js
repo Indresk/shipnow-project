@@ -1,5 +1,4 @@
-const CouriersService = require('../services/couriers.service');
-const CourierService = require('../services/couriers.service');
+import CouriersService from '../services/couriers.service.js';
 
 class CourierController {
 	static async getAll(req, res) {
@@ -40,4 +39,4 @@ class CourierController {
 	}
 }
 
-module.exports = CourierController;
+export default CourierController;

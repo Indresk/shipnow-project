@@ -1,5 +1,5 @@
-const { USER_ROLES } = require('../constants');
-const UserRepository = require('../repositories/users.repository');
+import { USER_ROLES } from '../constants/index.js';
+import UserRepository from '../repositories/users.repository.js';
 
 class UserService {
 	static async create({ name, email, role }) {
@@ -37,4 +37,4 @@ class UserService {
 	}
 }
 
-module.exports = UserService;
+export default UserService;

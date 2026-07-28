@@ -1,4 +1,4 @@
-const ProductsService = require('../services/products.service');
+import ProductsService from '../services/products.service.js';
 
 class ProductsController {
 	static async create(req, res) {
@@ -41,4 +41,4 @@ class ProductsController {
 	}
 }
 
-module.exports = ProductsController;
+export default ProductsController;

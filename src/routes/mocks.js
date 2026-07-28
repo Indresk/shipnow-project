@@ -1,9 +1,10 @@
-const express = require('express');
+import express from 'express';
+import UserMockController from '../../mocks/controllers/users.mock.controller.js';
+
 const router = express.Router();
 
-router.get('/api/mocks/mockingusers');
-router.get('/api/mocks/mockingorders');
+router.get('/mockingusers', UserMockController.generateUsers);
+router.get('/mockingorders');
+router.post('/generateData');
 
-router.post('/api/mocks/generateData');
-
-module.exports = router;
+export default router;

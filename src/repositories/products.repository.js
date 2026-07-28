@@ -1,4 +1,4 @@
-const Product = require('../models/product');
+import Product from '../models/product.js';
 
 class ProductsRepository {
 	static async create({ name, price, stock, status }) {
@@ -21,6 +21,11 @@ class ProductsRepository {
 		const product = await Product.findById(id);
 		return product;
 	}
+
+	static async insertMany(products) {
+		const newProducts = await Product.insertMany(products);
+		return newProducts;
+	}
 }
 
-module.exports = ProductsRepository;
+export default ProductsRepository;

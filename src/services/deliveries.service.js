@@ -1,9 +1,9 @@
-const DeliveriesRepository = require('../repositories/deliveries.repository');
-const { getTrackingStatus } = require('../services/trackingProvider');
-const OrdersService = require('./orders.service');
-const CouriersService = require('./couriers.service');
-const { DELIVERY_STATUS } = require('../constants');
-const { default: mongoose } = require('mongoose');
+import DeliveriesRepository from '../repositories/deliveries.repository.js';
+import { getTrackingStatus } from '../services/trackingProvider.js';
+import OrdersService from './orders.service.js';
+import CouriersService from './couriers.service.js';
+import { DELIVERY_STATUS } from '../constants/index.js';
+import mongoose from 'mongoose';
 
 class DeliveriesService {
 	static async getAll() {
@@ -59,4 +59,4 @@ class DeliveriesService {
 	}
 }
 
-module.exports = DeliveriesService;
+export default DeliveriesService;

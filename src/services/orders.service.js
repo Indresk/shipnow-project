@@ -1,8 +1,8 @@
-const { default: mongoose } = require('mongoose');
-const { USER_ROLES, ORDER_PRIORITY, ORDER_STATUS } = require('../constants');
-const OrdersRepository = require('../repositories/orders.repository');
-const ProductsRepository = require('../repositories/products.repository');
-const UserService = require('./users.service');
+import mongoose from 'mongoose';
+import { ORDER_PRIORITY, ORDER_STATUS } from '../constants/index.js';
+import OrdersRepository from '../repositories/orders.repository.js';
+import ProductsRepository from '../repositories/products.repository.js';
+import UserService from './users.service.js';
 
 class OrdersService {
 	static async create({
@@ -142,4 +142,4 @@ class OrdersService {
 	}
 }
 
-module.exports = OrdersService;
+export default OrdersService;

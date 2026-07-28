@@ -17,6 +17,10 @@ npm start
 npm run dev
 ```
 
+## Cómo armar el .env para correr este proyecto
+
+El .env debe seguir la estrucutra propuesta en el archivo .env.example.
+
 ## Porque se separó la logica
 
 - Bajo la carpeta repository quedó unicamente las solicitudes a la base de datos y la conexion con los modelos requeridos.

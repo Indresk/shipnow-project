@@ -1,7 +1,7 @@
-const express = require('express');
-const router = express.Router();
+import express from 'express';
+import OrdersController from '../controller/orders.controller.js';
 
-const OrdersController = require('../controller/orders.controller');
+const router = express.Router();
 
 // POST /api/orders -> crea un envio
 router.post('/', OrdersController.create);
@@ -15,4 +15,4 @@ router.get('/:id', OrdersController.getById);
 // PATCH /api/orders/:id/status -> cambia el estado de un envio
 router.patch('/:id/status', OrdersController.updateStatus);
 
-module.exports = router;
+export default router;

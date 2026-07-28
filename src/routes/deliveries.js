@@ -1,7 +1,7 @@
-const express = require('express');
-const router = express.Router();
+import express from 'express';
+import DeliveriesController from '../controller/deliveries.controller.js';
 
-const DeliveriesController = require('../controller/deliveries.controller');
+const router = express.Router();
 
 // GET /api/deliveries -> lista entregas
 router.get('/', DeliveriesController.getAll);
@@ -15,4 +15,4 @@ router.post('/', DeliveriesController.create);
 // PATCH /api/deliveries/:id/status -> actualiza el estado de una entrega
 router.patch('/:id/status', DeliveriesController.update);
 
-module.exports = router;
+export default router;

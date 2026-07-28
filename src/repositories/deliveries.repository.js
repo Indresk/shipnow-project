@@ -1,4 +1,4 @@
-const Delivery = require('../models/delivery');
+import Delivery from '../models/delivery.js';
 
 class DeliveriesRepository {
 	static async getAll() {
@@ -24,9 +24,13 @@ class DeliveriesRepository {
 			{ $set: { status: newStatus } },
 			{ new: true, runValidators: true },
 		);
-
 		return deliveryUpdated;
+	}
+
+	static async insertMany(deliveries) {
+		const newDeliveries = await Delivery.insertMany(deliveries);
+		return newDeliveries;
 	}
 }
 
-module.exports = DeliveriesRepository;
+export default DeliveriesRepository;

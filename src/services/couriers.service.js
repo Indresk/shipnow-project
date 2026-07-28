@@ -1,16 +1,18 @@
-const CouriersRepository = require('../repositories/couriers.repository');
+import CouriersRepository from '../repositories/couriers.repository.js';
 
 class CouriersService {
 	static async getAll() {
-		const deliveries = await CouriersRepository.getAll();
-		return deliveries;
+		const couriers = await CouriersRepository.getAll();
+		return couriers;
 	}
+
 	static async getById(id) {
 		if (!id) throw new Error('Id no proporcionada');
 		const courier = await CouriersRepository.getById(id);
 		if (!courier) throw new Error('Repartidor no encontrado');
 		return courier;
 	}
+
 	static async create({ name, zone, available }) {
 		if (!name || !zone)
 			throw new Error('Faltan datos obligatorios del repartidor');
@@ -25,4 +27,4 @@ class CouriersService {
 	}
 }
 
-module.exports = CouriersService;
+export default CouriersService;

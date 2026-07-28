@@ -1,5 +1,5 @@
-const ProductsRepository = require('../repositories/products.repository');
-const { PRODUCT_STATUS } = require('../constants');
+import ProductsRepository from '../repositories/products.repository.js';
+import { PRODUCT_STATUS } from '../constants/index.js';
 
 class ProductsService {
 	static async create({
@@ -42,4 +42,4 @@ class ProductsService {
 	}
 }
 
-module.exports = ProductsService;
+export default ProductsService;

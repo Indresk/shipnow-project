@@ -3,7 +3,7 @@
 // de orders, acoplando la logica de negocio con un efecto secundario.
 // El curso muestra como desacoplar esto (inyeccion de dependencias / capa de servicios).
 function sendNotification(message) {
-  console.log("Notificacion enviada: " + message);
+	console.log('Notificacion enviada: ' + message);
 }
 
-module.exports = sendNotification;
+export default sendNotification;

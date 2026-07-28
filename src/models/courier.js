@@ -1,10 +1,10 @@
-const mongoose = require("mongoose");
+import mongoose from 'mongoose';
 
 // Modelo de Courier (repartidor).
 const courierSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  zone: { type: String, required: true },
-  available: { type: Boolean, default: true },
+	name: { type: String, required: true },
+	zone: { type: String, required: true },
+	available: { type: Boolean, default: true },
 });
 
-module.exports = mongoose.model("Courier", courierSchema);
+export default mongoose.model('Courier', courierSchema);

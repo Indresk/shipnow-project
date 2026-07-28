@@ -22,4 +22,4 @@ function getTrackingStatus(deliveryId) {
 
 console.log(getTrackingStatus());
 
-module.exports = { getTrackingStatus };
+export { getTrackingStatus };

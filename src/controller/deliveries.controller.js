@@ -1,4 +1,4 @@
-const DeliveriesService = require('../services/deliveries.service');
+import DeliveriesService from '../services/deliveries.service.js';
 
 class DeliveriesController {
 	static async getAll(req, res) {
@@ -53,4 +53,4 @@ class DeliveriesController {
 	}
 }
 
-module.exports = DeliveriesController;
+export default DeliveriesController;

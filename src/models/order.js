@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const { USER_ROLES, ORDER_STATUS, ORDER_PRIORITY } = require('../constants');
+import mongoose from 'mongoose';
+import { ORDER_STATUS, ORDER_PRIORITY } from '../constants/index.js';
 
 const orderItemSchema = new mongoose.Schema(
 	{
@@ -23,12 +23,20 @@ const orderItemSchema = new mongoose.Schema(
 // Modelo de Order (envio/pedido).
 const orderSchema = new mongoose.Schema({
 	customerName: { type: String, required: true }, // se mantiene del v1 original
-	customer: { type: mongoose.Schema.Types.ObjectId, ref: USER_ROLES.USER },
+	customer: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 	address: { type: String, required: true },
 	weight: { type: Number, required: true },
 	cost: { type: Number }, // se calcula en la ruta: cost = weight * 10
-	status: { type: String, default: ORDER_STATUS.PENDING }, // pending | in_transit | delivered
-	priority: { type: String, default: ORDER_PRIORITY.NORMAL }, // normal | high
+	status: {
+		type: String,
+		enum: Object.values(ORDER_STATUS),
+		default: ORDER_STATUS.PENDING,
+	}, // pending | in_transit | delivered
+	priority: {
+		type: String,
+		enum: Object.values(ORDER_PRIORITY),
+		default: ORDER_PRIORITY.NORMAL,
+	}, // normal | high
 	items: {
 		type: [orderItemSchema],
 		validate: (v) => v.length > 0,
@@ -36,4 +44,4 @@ const orderSchema = new mongoose.Schema({
 	courierId: { type: mongoose.Schema.Types.ObjectId, ref: 'Courier' },
 });
 
-module.exports = mongoose.model('Order', orderSchema);
+export default mongoose.model('Order', orderSchema);
