@@ -27,7 +27,7 @@ class DeliveryMockService {
 
 		if (availableOrders.length === 0)
 			throw new Error(
-				'Actualmente hay suficientes orders en la DB para crear este mock',
+				'Actualmente no hay suficientes orders en la DB para crear este mock',
 			);
 
 		const fakeDeliveries = Array.from({ length: amount }, () =>

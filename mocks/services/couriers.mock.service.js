@@ -18,7 +18,7 @@ class CourierMockService {
 	static async generateMultiple(amount = 1) {
 		if (isNaN(parseInt(amount)) || amount <= 0)
 			throw new Error(
-				'Cantidad de cuoriers para mock invalida, debe ser un entero mayor que 0',
+				'Cantidad de couriers para mock invalida, debe ser un entero mayor que 0',
 			);
 		const fakeCouriers = Array.from({ length: amount }, () => this.generate());
 

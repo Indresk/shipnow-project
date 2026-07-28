@@ -53,15 +53,15 @@ class OrderMockService {
 
 		if (availableUsers.length === 0)
 			throw new Error(
-				'Actualmente hay suficientes usuarios en la DB para crear este mock',
+				'Actualmente no hay suficientes usuarios en la DB para crear este mock',
 			);
 		if (availableCouriers.length === 0)
 			throw new Error(
-				'Actualmente hay suficientes couriers en la DB para crear este mock',
+				'Actualmente no hay suficientes couriers en la DB para crear este mock',
 			);
 		if (availableProducts.length === 0)
 			throw new Error(
-				'Actualmente hay suficientes producs en la DB para crear este mock',
+				'Actualmente no hay suficientes producs en la DB para crear este mock',
 			);
 
 		const fakeOrders = Array.from({ length: amount }, () =>
