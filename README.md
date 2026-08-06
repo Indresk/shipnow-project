@@ -47,6 +47,7 @@ POST /api/mocks/generateData // Retorna un listado mock de la cantidad de usuari
 ```
 
 Nota: En los endpoints de revisión masiva no es necesario enviar todos los valores en el body, se puede enviar solo los que se quieran generar.
+
 Nota 2: Para mayor claridad pueden usarse como ejemplo los archivos de coleccion para importar en [Postman](./testing/ShipNow%20API%20v1%20-%20Postman%20Collection.json) o Bruno y poder testear los endpoints de la API.
 
 ## Porque se separó la logica

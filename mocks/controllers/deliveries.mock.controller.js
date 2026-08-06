@@ -1,7 +1,7 @@
 import DeliveryMockService from '../services/deliveries.mock.service.js';
 
 class DeliveryMockController {
-	static async generate(req, res) {
+	static async generate(req, res, next) {
 		try {
 			const { deliveries } = req.body;
 			const deliveriesGenerated =
@@ -9,10 +9,10 @@ class DeliveryMockController {
 
 			res.status(200).json(deliveriesGenerated);
 		} catch (error) {
-			res.status(500).send(`Error del servidor ${error.message}`);
+			next(error);
 		}
 	}
-	static async insert(req, res) {
+	static async insert(req, res, next) {
 		try {
 			const { deliveries } = req.body;
 			const deliveriesInserted =
@@ -20,7 +20,7 @@ class DeliveryMockController {
 
 			res.status(200).json(deliveriesInserted);
 		} catch (error) {
-			res.status(500).send(`Error del servidor ${error.message}`);
+			next(error);
 		}
 	}
 }

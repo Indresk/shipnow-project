@@ -1,7 +1,7 @@
 import UserService from '../services/users.service.js';
 
 class UserController {
-	static async create(req, res) {
+	static async create(req, res, next) {
 		try {
 			const { name, email, role } = req.body;
 
@@ -10,28 +10,25 @@ class UserController {
 			console.log('User creado:', user._id);
 			res.status(201).json(user);
 		} catch (error) {
-			console.log('Error al crear user:', error.message);
-			res.status(500).send('Error del servidor');
+			next(error);
 		}
 	}
 
-	static async getAll(req, res) {
+	static async getAll(req, res, next) {
 		try {
 			const users = await UserService.findAll();
 			res.json(users);
 		} catch (error) {
-			console.log('Error al listar users:', error.message);
-			res.status(500).send('Error del servidor');
+			next(error);
 		}
 	}
 
-	static async getById(req, res) {
+	static async getById(req, res, next) {
 		try {
 			const user = await UserService.findById(req.params.id);
 			res.json(user);
 		} catch (error) {
-			console.log('Error al buscar user:', error.message);
-			res.status(500).send('Error del servidor');
+			next(error);
 		}
 	}
 }

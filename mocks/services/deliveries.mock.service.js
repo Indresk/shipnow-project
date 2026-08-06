@@ -2,6 +2,8 @@ import { faker } from '@faker-js/faker';
 import OrdersRepository from '../../src/repositories/orders.repository.js';
 import DeliveriesRepository from '../../src/repositories/deliveries.repository.js';
 import { DELIVERY_STATUS } from '../../src/constants/index.js';
+import AppError from '../../src/errors/app.error.js';
+import { ERROR_CODES } from '../../src/errors/error.codes.js';
 
 class DeliveryMockService {
 	static generate({ availableOrders }) {
@@ -21,12 +23,11 @@ class DeliveryMockService {
 		const availableOrders = await OrdersRepository.getAll();
 
 		if (isNaN(parseInt(amount)) || amount <= 0)
-			throw new Error(
-				'Cantidad de deliveries para mock invalida, debe ser un entero mayor que 0',
-			);
+			throw new AppError(ERROR_CODES.INVALID_MOCK_AMOUNT);
 
 		if (availableOrders.length === 0)
-			throw new Error(
+			throw new AppError(
+				ERROR_CODES.MOCK_GENERATION_ERROR,
 				'Actualmente no hay suficientes orders en la DB para crear este mock',
 			);
 

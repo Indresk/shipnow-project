@@ -9,6 +9,10 @@ import couriersRouter from './routes/couriers.js';
 import productsRouter from './routes/products.js';
 import deliveriesRouter from './routes/deliveries.js';
 import mocksRouter from './routes/mocks.js';
+import {
+	errorHandler,
+	notFoundHandler,
+} from './middlewares/error.middleware.js';
 
 const app = express();
 
@@ -32,8 +36,13 @@ app.get('/', (req, res) => {
 });
 
 // Conectamos a la base y levantamos el server.
-connectDB();
+await connectDB();
 
 app.listen(config.PORT, () => {
 	console.log('ShipNow escuchando en el puerto ' + config.PORT);
 });
+
+// Dejamos esuchando los middlewares de error
+
+app.use(notFoundHandler);
+app.use(errorHandler);

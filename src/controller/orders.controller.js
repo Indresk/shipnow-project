@@ -2,7 +2,7 @@ import OrdersService from '../services/orders.service.js';
 import sendNotification from '../services/notifications.js';
 
 class OrdersController {
-	static async create(req, res) {
+	static async create(req, res, next) {
 		try {
 			const {
 				customerName,
@@ -34,34 +34,31 @@ class OrdersController {
 			console.log('Order creada:', order.orderId);
 			res.status(201).json(order);
 		} catch (error) {
-			console.log('Error al crear order:', error.message);
-			res.status(500).send('Error del servidor');
+			next(error);
 		}
 	}
 
-	static async getAll(req, res) {
+	static async getAll(req, res, next) {
 		try {
 			const orders = await OrdersService.getAll();
 			res.json(orders);
 		} catch (error) {
-			console.log('Error al listar orders:', error.message);
-			res.status(500).send('Error del servidor');
+			next(error);
 		}
 	}
 
-	static async getById(req, res) {
+	static async getById(req, res, next) {
 		try {
 			const { id } = req.params;
 			const selectedOrder = await OrdersService.getById(id);
 
 			res.json(selectedOrder);
 		} catch (error) {
-			console.log('Error al buscar orden:', error.message);
-			res.status(500).send('Error del servidor');
+			next(error);
 		}
 	}
 
-	static async updateStatus(req, res) {
+	static async updateStatus(req, res, next) {
 		try {
 			const { id } = req.params;
 			const { status } = req.body;
@@ -75,8 +72,7 @@ class OrdersController {
 			);
 			res.json(newOrderStatus);
 		} catch (error) {
-			console.log('Error al actualizar order:', error.message);
-			res.status(500).send('Error del servidor');
+			next(error);
 		}
 	}
 }

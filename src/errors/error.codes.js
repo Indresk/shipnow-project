@@ -1,0 +1,23 @@
+export const ERROR_CODES = {
+	USER_NOT_FOUND: 'user_not_found',
+	USER_ALREADY_EXISTS: 'user_already_exists',
+	INVALID_USER_ROLE: 'invalid_user_role',
+	PRODUCT_NOT_FOUND: 'product_not_found',
+	ORDER_NOT_FOUND: 'order_not_found',
+	ORDER_ITEMS_REQUIRED: 'order_items_required',
+	INVALID_ORDER_STATUS: 'invalid_order_status',
+	ORDER_ALREADY_DELIVERED: 'order_already_delivered',
+	DELIVERY_NOT_FOUND: 'delivery_not_found',
+	COURIER_NOT_FOUND: 'courier_not_found',
+	DELIVERY_ALREADY_ASSIGNED: 'delivery_already_assigned',
+	INVALID_DELIVERY_STATUS: 'invalid_delivery_status',
+	INVALID_MOCK_AMOUNT: 'invalid_mock_amount',
+	MOCK_GENERATION_ERROR: 'mock_generation_error',
+	DATABASE_ERROR: 'database_error',
+	INTERNAL_SERVER_ERROR: 'internal_server_error',
+	CONFIG_ERROR: 'config_error',
+	ROUTE_NOT_FOUND: 'route_not_found',
+	BAD_REQUEST: 'bad_request',
+};
+
+Object.freeze(ERROR_CODES);

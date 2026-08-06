@@ -1,5 +1,7 @@
 import { faker } from '@faker-js/faker';
 import CouriersRepository from '../../src/repositories/couriers.repository.js';
+import AppError from '../../src/errors/app.error.js';
+import { ERROR_CODES } from '../../src/errors/error.codes.js';
 
 class CourierMockService {
 	static generate() {
@@ -17,9 +19,7 @@ class CourierMockService {
 
 	static async generateMultiple(amount = 1) {
 		if (isNaN(parseInt(amount)) || amount <= 0)
-			throw new Error(
-				'Cantidad de couriers para mock invalida, debe ser un entero mayor que 0',
-			);
+			throw new AppError(ERROR_CODES.INVALID_MOCK_AMOUNT);
 		const fakeCouriers = Array.from({ length: amount }, () => this.generate());
 
 		return fakeCouriers;

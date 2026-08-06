@@ -1,24 +1,24 @@
 import OrderMockService from '../services/orders.mock.service.js';
 
 class OrderMockController {
-	static async generate(req, res) {
+	static async generate(req, res, next) {
 		try {
 			const { orders } = req.body;
 			const ordersGenerated = await OrderMockService.generateMultiple(orders);
 
 			res.status(200).json(ordersGenerated);
 		} catch (error) {
-			res.status(500).send(`Error del servidor ${error.message}`);
+			next(error);
 		}
 	}
-	static async insert(req, res) {
+	static async insert(req, res, next) {
 		try {
 			const { orders } = req.body;
 			const ordersInserted = await OrderMockService.generateAndInsert(orders);
 
 			res.status(200).json(ordersInserted);
 		} catch (error) {
-			res.status(500).send(`Error del servidor ${error.message}`);
+			next(error);
 		}
 	}
 }

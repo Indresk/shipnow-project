@@ -13,7 +13,7 @@ const generators = {
 };
 
 class MockController {
-	static async generate(req, res) {
+	static async generate(req, res, next) {
 		try {
 			const generatedEntries = await Promise.all(
 				Object.entries(generators).map(async ([key, service]) => {
@@ -30,30 +30,25 @@ class MockController {
 			);
 
 			res.status(200).json(generated);
-			res.status(200);
 		} catch (error) {
-			res.status(500).send(`Error del servidor ${error.message}`);
+			next(error);
 		}
 	}
-	static async insert(req, res) {
+	static async insert(req, res, next) {
 		try {
-			const insertedEntries = await Promise.all(
-				Object.entries(generators).map(async ([key, service]) => {
-					const keyValue = req.body[key];
-					if (keyValue == null) return null;
+			const inserted = {};
 
-					const result = await service.generateAndInsert(keyValue);
-					return [key, result];
-				}),
-			);
+			for (const [key, service] of Object.entries(generators)) {
+				const keyValue = req.body[key];
 
-			const inserted = Object.fromEntries(
-				insertedEntries.filter((key, value) => key != null),
-			);
+				if (keyValue == null) continue;
+
+				inserted[key] = await service.generateAndInsert(keyValue);
+			}
 
 			res.status(200).json(inserted);
 		} catch (error) {
-			res.status(500).send(`Error del servidor ${error.message}`);
+			next(error);
 		}
 	}
 }

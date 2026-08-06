@@ -1,7 +1,7 @@
 import ProductMockService from '../services/products.mock.service.js';
 
 class ProductMockController {
-	static async generate(req, res) {
+	static async generate(req, res, next) {
 		try {
 			const { products } = req.body;
 			const productsGenerated =
@@ -9,10 +9,10 @@ class ProductMockController {
 
 			res.status(200).json(productsGenerated);
 		} catch (error) {
-			res.status(500).send(`Error del servidor ${error.message}`);
+			next(error);
 		}
 	}
-	static async insert(req, res) {
+	static async insert(req, res, next) {
 		try {
 			const { products } = req.body;
 			const productsInserted =
@@ -20,7 +20,7 @@ class ProductMockController {
 
 			res.status(200).json(productsInserted);
 		} catch (error) {
-			res.status(500).send(`Error del servidor ${error.message}`);
+			next(error);
 		}
 	}
 }

@@ -1,7 +1,7 @@
 import CourierMockService from '../services/couriers.mock.service.js';
 
 class CourierMockController {
-	static async generate(req, res) {
+	static async generate(req, res, next) {
 		try {
 			const { couriers } = req.body;
 			const couriersGenerated =
@@ -9,10 +9,10 @@ class CourierMockController {
 
 			res.status(200).json(couriersGenerated);
 		} catch (error) {
-			res.status(500).send(`Error del servidor ${error.message}`);
+			next(error);
 		}
 	}
-	static async insert(req, res) {
+	static async insert(req, res, next) {
 		try {
 			const { couriers } = req.body;
 			const couriersInserted =
@@ -20,7 +20,7 @@ class CourierMockController {
 
 			res.status(200).json(couriersInserted);
 		} catch (error) {
-			res.status(500).send(`Error del servidor ${error.message}`);
+			next(error);
 		}
 	}
 }

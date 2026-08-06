@@ -4,11 +4,13 @@ import UserRepository from '../../src/repositories/users.repository.js';
 import { ORDER_PRIORITY, ORDER_STATUS } from '../../src/constants/index.js';
 import ProductsRepository from '../../src/repositories/products.repository.js';
 import CouriersRepository from '../../src/repositories/couriers.repository.js';
+import AppError from '../../src/errors/app.error.js';
+import { ERROR_CODES } from '../../src/errors/error.codes.js';
 
 class OrderMockService {
 	static generate({ availableUsers, availableCouriers, availableProducts }) {
 		const selectedUser = faker.helpers.arrayElement(availableUsers);
-		const selectedCourier = faker.helpers.arrayElement(availableUsers);
+		const selectedCourier = faker.helpers.arrayElement(availableCouriers);
 
 		const selectedProds = Array.from(
 			{ length: faker.number.int({ min: 1, max: 15 }) },
@@ -47,20 +49,21 @@ class OrderMockService {
 		const availableProducts = await ProductsRepository.findAll();
 
 		if (isNaN(parseInt(amount)) || amount <= 0)
-			throw new Error(
-				'Cantidad de orders para mock invalida, debe ser un entero mayor que 0',
-			);
+			throw new AppError(ERROR_CODES.INVALID_MOCK_AMOUNT);
 
 		if (availableUsers.length === 0)
-			throw new Error(
+			throw new AppError(
+				ERROR_CODES.MOCK_GENERATION_ERROR,
 				'Actualmente no hay suficientes usuarios en la DB para crear este mock',
 			);
 		if (availableCouriers.length === 0)
-			throw new Error(
+			throw new AppError(
+				ERROR_CODES.MOCK_GENERATION_ERROR,
 				'Actualmente no hay suficientes couriers en la DB para crear este mock',
 			);
 		if (availableProducts.length === 0)
-			throw new Error(
+			throw new AppError(
+				ERROR_CODES.MOCK_GENERATION_ERROR,
 				'Actualmente no hay suficientes producs en la DB para crear este mock',
 			);
 

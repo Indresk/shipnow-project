@@ -1,7 +1,7 @@
 import ProductsService from '../services/products.service.js';
 
 class ProductsController {
-	static async create(req, res) {
+	static async create(req, res, next) {
 		try {
 			const { name, price, stock, status } = req.body;
 
@@ -15,28 +15,25 @@ class ProductsController {
 			console.log('Product creado:', product._id);
 			res.status(201).json(product);
 		} catch (error) {
-			console.log('Error al crear product:', error.message);
-			res.status(500).send('Error del servidor');
+			next(error);
 		}
 	}
 
-	static async getAll(req, res) {
+	static async getAll(req, res, next) {
 		try {
 			const products = await ProductsService.findAll();
 			res.json(products);
 		} catch (error) {
-			console.log('Error al listar products:', error.message);
-			res.status(500).send('Error del servidor');
+			next(error);
 		}
 	}
 
-	static async getById(req, res) {
+	static async getById(req, res, next) {
 		try {
 			const product = await ProductsService.findById(req.params.id);
 			res.json(product);
 		} catch (error) {
-			console.log('Error al buscar product:', error.message);
-			res.status(500).send('Error del servidor');
+			next(error);
 		}
 	}
 }

@@ -20,6 +20,4 @@ function getTrackingStatus(deliveryId) {
 	return TRACKING_STATES[index];
 }
 
-console.log(getTrackingStatus());
-
 export { getTrackingStatus };

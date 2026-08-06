@@ -1,10 +1,16 @@
+import mongoose from 'mongoose';
 import { USER_ROLES } from '../constants/index.js';
+import AppError from '../errors/app.error.js';
+import { ERROR_CODES } from '../errors/error.codes.js';
 import UserRepository from '../repositories/users.repository.js';
 
 class UserService {
 	static async create({ name, email, role }) {
 		if (!name || !email) {
-			throw new Error('Faltan datos obligatorios del usuario');
+			throw new AppError(
+				ERROR_CODES.BAD_REQUEST,
+				'Falta correo o nombre del usuario',
+			);
 		}
 
 		if (!role) {
@@ -15,7 +21,7 @@ class UserService {
 		const validRoles = Object.values(USER_ROLES);
 		const roleExist = validRoles.find((userRole) => userRole === role);
 
-		if (!roleExist) throw new Error('Rol asignado para el usuario invalido');
+		if (!roleExist) throw new AppError(ERROR_CODES.INVALID_USER_ROLE);
 
 		const user = await UserRepository.create({ name, email, role });
 		return user;
@@ -27,11 +33,22 @@ class UserService {
 	}
 
 	static async findById(id) {
-		if (!id) throw new Error('Falta id del usuario a buscar');
+		if (!id)
+			throw new AppError(
+				ERROR_CODES.BAD_REQUEST,
+				'Falta id del usuario a buscar',
+			);
+
+		if (!mongoose.isValidObjectId(id)) {
+			throw new AppError(
+				ERROR_CODES.BAD_REQUEST,
+				`El id proporcionado no es válido`,
+			);
+		}
 
 		const user = await UserRepository.findById(id);
 
-		if (!user) throw new Error('Usuario no encontrado');
+		if (!user) throw new AppError(ERROR_CODES.USER_NOT_FOUND);
 
 		return user;
 	}
