@@ -8,10 +8,7 @@ Requisitos: Node.js y setear previamente las varables de entorno con la MONGODB_
 # 1. Instalar dependencias
 npm install
 
-# 2. (Opcional) Cargar datos de ejemplo relacionados
-npm run seed
-
-# 3. Levantar el servidor
+# 2. Levantar el servidor
 npm start
 # o
 npm run dev
@@ -20,6 +17,39 @@ npm run dev
 ## Cómo armar el .env para correr este proyecto
 
 El .env debe seguir la estrucutra propuesta en el archivo [.env.example](./.env.example).
+
+## Manejo de errores
+
+### Estructura de los errores
+
+Los errores de la API siguen la siguiente estructura:
+
+```json
+{
+	"status": "string", // "error" en todos los casos de momento
+	"code": "string", // basado en las strings de la biblioteca de errores
+	"message": "string" // mensaje personalizado para el error especifico o default con base en el diccionario de errores
+}
+```
+
+Se encuentran estructurados desde el [middleware de manejo de errores](./src/middlewares/error.middleware.js), y estan construidos a partir del custom error [AppError](./src/errors/app.error.js) que espera los siguientes parametros:
+
+- code: El code es un string que representa el tipo de error que ocurrió y se debe asignar desde [la bibloteca de errores](./src/errors/app.error.js) que esta relacionado con [el diccionario de errores](./src/errors/error.dictionary.js)
+- message: El message es un string que describe el error.
+- details: El details es un objeto que puede contener información adicional sobre el error.
+
+Nota: Los parametros message y details son opcionales, pero el code es obligatorio.
+
+Nota 2: Si se desea añadir un error a la biblioteca de errores se debe tambien agregar el error al diccionario de errores con su respectivo message y statusCode.
+
+### Cómo probar los errores de la API
+
+Ahora mismo se encuentran implementados los siguientes errores en la API:
+
+- Error de ruta no encontrada (404): Se lanza cuando se intenta acceder a una ruta que no existe en la API.
+- Error de bad request (400): Se lanza cuando en cualquiera de los endpoints disponibles (users, products, orders, deliveries, couriers) se envía un body con datos incompletos o erroneos incluyendo verificacion de posibles roles y estados de elementos.
+- Error de elemento no encontrado (404): Se lanza cuando en cualquiera de los endpoints disponibles (users, products, orders, deliveries, couriers) se intenta buscar un elemento por ID y esta es inexistente.
+- Errores de mocking (400 y 500): Se lanzan cuando se intenta generar datos mock con valores de 0, negativos o cuando ocurre un error interno en el servidor al intentar generar los datos mock.
 
 ## Testing de API endpoints con herramientas como Postman
 
