@@ -64,7 +64,7 @@ Los errores de la API siguen la siguiente estructura:
 ```json
 {
 	"status": "string", // "error" en todos los casos de momento
-	"code": "string", // basado en las strings de la biblioteca de errores
+	"error": "string", // basado en las strings de la biblioteca de errores
 	"message": "string" // mensaje personalizado para el error especifico o default con base en el diccionario de errores
 }
 ```
