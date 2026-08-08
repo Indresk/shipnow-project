@@ -1,10 +1,13 @@
 import CouriersService from '../services/couriers.service.js';
+import logger from '../utils/logger.js';
 
 class CourierController {
 	static async getAll(req, res, next) {
 		try {
 			const couriers = await CouriersService.getAll();
-			res.json(couriers);
+
+			logger.http('GET /api/couriers 200');
+			res.status(200).json(couriers);
 		} catch (error) {
 			next(error);
 		}
@@ -12,8 +15,11 @@ class CourierController {
 
 	static async getById(req, res, next) {
 		try {
-			const courier = await CouriersService.getById(req.params.id);
-			res.json(courier);
+			const { id } = req.params;
+			const courier = await CouriersService.getById(id);
+
+			logger.http(`GET /api/couriers/${id} 200`);
+			res.status(200).json(courier);
 		} catch (error) {
 			next(error);
 		}
@@ -28,7 +34,8 @@ class CourierController {
 				available,
 			});
 
-			console.log('Courier creado:', courier._id);
+			logger.debug(`Courier creado: ${courier._id}`);
+			logger.http(`POST /api/couriers 201`);
 			res.status(201).json(courier);
 		} catch (error) {
 			next(error);

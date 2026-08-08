@@ -1,10 +1,13 @@
 import DeliveriesService from '../services/deliveries.service.js';
+import logger from '../utils/logger.js';
 
 class DeliveriesController {
 	static async getAll(req, res, next) {
 		try {
 			const deliveries = await DeliveriesService.getAll();
-			res.json(deliveries);
+
+			logger.http(`GET /api/deliveries 200`);
+			res.status(200).json(deliveries);
 		} catch (error) {
 			next(error);
 		}
@@ -12,8 +15,11 @@ class DeliveriesController {
 
 	static async getById(req, res, next) {
 		try {
-			const deliveryStatus = await DeliveriesService.getById(req.params.id);
-			res.json(deliveryStatus);
+			const { id } = req.params;
+			const deliveryStatus = await DeliveriesService.getById(id);
+
+			logger.http(`GET /api/deliveries/${id} 200`);
+			res.status(200).json(deliveryStatus);
 		} catch (error) {
 			next(error);
 		}
@@ -28,7 +34,8 @@ class DeliveriesController {
 				status,
 			});
 
-			console.log('Delivery creada:', delivery._id);
+			logger.debug(`Delivery creada: ${delivery._id}`);
+			logger.http(`POST /api/deliveries 201`);
 			res.status(201).json(delivery);
 		} catch (error) {
 			next(error);
@@ -39,10 +46,11 @@ class DeliveriesController {
 		try {
 			const { status } = req.body;
 			const { id } = req.params;
-
 			const delivery = await DeliveriesService.update(id, status);
-			console.log('Delivery actualizada:', delivery._id, '->', status);
-			res.json(delivery);
+
+			logger.debug(`Delivery actualizada: ${delivery._id} -> ${status}`);
+			logger.http(`PATCH /api/deliveries/${delivery._id}/${status} 200`);
+			res.status(200).json(delivery);
 		} catch (error) {
 			next(error);
 		}

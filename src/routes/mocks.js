@@ -8,11 +8,21 @@ import MockController from '../../mocks/controllers/mock.controller.js';
 
 const router = express.Router();
 
+// Generar datos mock por modelo sin guardarlos en DB
 router.get('/mockingusers', UserMockController.generate);
 router.get('/mockingproducts', ProductMockController.generate);
 router.get('/mockingorders', OrderMockController.generate);
 router.get('/mockingdeliveries', DeliveryMockController.generate);
 router.get('/mockingcouriers', CourierMockController.generate);
+
+// Generar datos mock por modelo y guardarlos en DB
+router.post('/mockingusers', UserMockController.insert);
+router.post('/mockingproducts', ProductMockController.insert);
+router.post('/mockingorders', OrderMockController.insert);
+router.post('/mockingdeliveries', DeliveryMockController.insert);
+router.post('/mockingcouriers', CourierMockController.insert);
+
+// Generar datos mock para todos los modelos o segun body del request y guardarlos o no en DB segun http verb
 router.get('/generateData', MockController.generate);
 router.post('/generateData', MockController.insert);
 

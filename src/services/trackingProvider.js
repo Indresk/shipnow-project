@@ -3,6 +3,8 @@
 // courier real). Se llama INLINE desde la ruta de deliveries, sin abstraccion ni
 // inyeccion de dependencias. El curso muestra como mockear esto en los tests.
 
+import logger from '../utils/logger.js';
+
 // Estados posibles que "devolveria" el proveedor externo.
 const TRACKING_STATES = [
 	'assigned',
@@ -13,7 +15,7 @@ const TRACKING_STATES = [
 
 function getTrackingStatus(deliveryId) {
 	// Logueamos la "llamada externa" (efecto secundario acoplado a proposito).
-	console.log('Consultando tracking provider para delivery: ' + deliveryId);
+	logger.info('Consultando tracking provider para delivery: ' + deliveryId);
 
 	const index = Math.floor(Math.random() * 4);
 

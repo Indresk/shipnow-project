@@ -6,6 +6,7 @@ import couriersRouter from './routes/couriers.js';
 import productsRouter from './routes/products.js';
 import deliveriesRouter from './routes/deliveries.js';
 import mocksRouter from './routes/mocks.js';
+import loggerRouter from './routes/loggerTest.js';
 import {
 	errorHandler,
 	notFoundHandler,
@@ -13,6 +14,7 @@ import {
 
 import { ENVIRONMENT } from './constants/index.js';
 import config from './config/index.js';
+import logger from './utils/logger.js';
 
 const app = express();
 
@@ -28,7 +30,10 @@ app.use('/api/deliveries', deliveriesRouter);
 
 // Dejamos las rutas de Mock
 
-if (config.NODE_ENV === ENVIRONMENT.DEV) app.use('/api/mocks', mocksRouter);
+if (config.NODE_ENV === ENVIRONMENT.DEV) {
+	app.use('/api/mocks', mocksRouter);
+	app.use('/api/logger', loggerRouter);
+}
 
 // Ruta de health check basica.
 app.get('/', (req, res) => {

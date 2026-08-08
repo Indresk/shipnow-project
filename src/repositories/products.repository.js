@@ -1,6 +1,16 @@
 import Product from '../models/product.js';
 
 class ProductsRepository {
+	static async getAll() {
+		const products = await Product.find();
+		return products;
+	}
+
+	static async getById(id) {
+		const product = await Product.findById(id);
+		return product;
+	}
+
 	static async create({ name, price, stock, status }) {
 		const newProd = await Product.create({
 			name,
@@ -10,16 +20,6 @@ class ProductsRepository {
 		});
 
 		return newProd;
-	}
-
-	static async findAll() {
-		const products = await Product.find();
-		return products;
-	}
-
-	static async findById(id) {
-		const product = await Product.findById(id);
-		return product;
 	}
 
 	static async insertMany(products) {

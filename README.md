@@ -18,6 +18,43 @@ npm run dev
 
 El .env debe seguir la estrucutra propuesta en el archivo [.env.example](./.env.example).
 
+## Sistema de logger para registro de temporal y persistente de eventos
+
+Para el registro de eventos del sistema se utiliza la libreria [winston](https://www.npmjs.com/package/winston) y se encuentra configurada en el archivo [logger.js](./src/utils/logger.js).
+
+### Niveles de log
+
+Se encuentran configurados los siguientes niveles de log:
+
+```js
+{
+	debug: 5, // Solo disponible con la variable NODE_ENV en development
+	http: 4, // para seguimiento de las respuestas HTTP en los endpoints
+	info: 3, // para seguimiento de eventos del sistema
+	warning: 2, // para seguimiento de eventos de error controlados y parte del funcionamiento del sistema
+	error: 1, // para seguimiento de eventos de error en el sistema
+	fatal: 0, // para seguimiento de errores que no permiten continuar con el funcionamiento del sistema
+}
+```
+
+#### Para probar todos los niveles de log
+
+Hay un endpoint para probar todos los niveles de log, este se encuentra en la ruta `/api/logger` y se puede probar realizando un GET request. Este endpoint solo se encuentra disponible con la variable de entorno `NODE_ENV` en `development`.
+
+### Archivos de log
+
+Los archivos de log solo contienen los niveles de log `error` y `fatal`, y se generan en la carpeta `logs` en la raíz del proyecto. Estos archivos tienen una duracion de 14 días y un maximo de tamaño de 20MB, luego de esto se generan nuevos archivos de log y los viejos se eliminan.
+
+### Git ignore y los logs
+
+Se encuentran ignorados los logs y el audit en el archivo `.gitignore`, por lo que no se suben al repositorio. Por esto mismo en la configuracion del logger estamos creando la carpeta `logs` ya que no se encuentra en el repositorio.
+
+### Comportamiento por entorno
+
+Como ha sido descrito a lo largo de la info de los logs, el comportamiento del logger cambia segun el entorno en el que se encuentre corriendo la API.
+
+Todos los niveles de log se encuentran disponibles en el entorno de desarrollo, mientras que en el entorno de produccion solo se encuentran disponibles los niveles de log en consola `http`, `info`, `warning`, `error` y `fatal`.
+
 ## Manejo de errores
 
 ### Estructura de los errores
@@ -61,12 +98,12 @@ Para poder acceder a los endpoints de Mocking de la API, se debe levantar el ser
 
 Revisión individual:
 
-```bash
-GET /api/mocks/mockingusers // Retorna un listado mock de la cantidad de usuarios proporcionada en el valor "users" del body en json de la solicitud.
-GET /api/mocks/mockingproducts // Retorna un listado mock de la cantidad de productos proporcionada en el valor "products" del body en json de la solicitud.
-GET /api/mocks/mockingorders // Retorna un listado mock de la cantidad de órdenes proporcionada en el valor "orders" del body en json de la solicitud.
-GET /api/mocks/mockingdeliveries // Retorna un listado mock de la cantidad de entregas proporcionada en el valor "deliveries" del body en json de la solicitud.
-GET /api/mocks/mockingcouriers // Retorna un listado mock de la cantidad de repartidores proporcionada en el valor "couriers" del body en json de la solicitud.
+```js
+GET / api / mocks / mockingusers; // Retorna un listado mock de la cantidad de usuarios proporcionada en el valor "users" del body en json de la solicitud.
+GET / api / mocks / mockingproducts; // Retorna un listado mock de la cantidad de productos proporcionada en el valor "products" del body en json de la solicitud.
+GET / api / mocks / mockingorders; // Retorna un listado mock de la cantidad de órdenes proporcionada en el valor "orders" del body en json de la solicitud.
+GET / api / mocks / mockingdeliveries; // Retorna un listado mock de la cantidad de entregas proporcionada en el valor "deliveries" del body en json de la solicitud.
+GET / api / mocks / mockingcouriers; // Retorna un listado mock de la cantidad de repartidores proporcionada en el valor "couriers" del body en json de la solicitud.
 ```
 
 Revisión masiva y escritura en la DB:

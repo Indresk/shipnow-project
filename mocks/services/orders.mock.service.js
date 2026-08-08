@@ -44,9 +44,9 @@ class OrderMockService {
 	}
 
 	static async generateMultiple(amount = 1) {
-		const availableUsers = await UserRepository.findAll();
+		const availableUsers = await UserRepository.getAll();
 		const availableCouriers = await CouriersRepository.getAll();
-		const availableProducts = await ProductsRepository.findAll();
+		const availableProducts = await ProductsRepository.getAll();
 
 		if (isNaN(parseInt(amount)) || amount <= 0)
 			throw new AppError(ERROR_CODES.INVALID_MOCK_AMOUNT);

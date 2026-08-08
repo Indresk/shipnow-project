@@ -2,8 +2,33 @@ import ProductsRepository from '../repositories/products.repository.js';
 import { PRODUCT_STATUS } from '../constants/index.js';
 import { ERROR_CODES } from '../errors/error.codes.js';
 import AppError from '../errors/app.error.js';
+import mongoose from 'mongoose';
 
 class ProductsService {
+	static async getAll() {
+		const products = await ProductsRepository.getAll();
+		return products;
+	}
+
+	static async getById(id) {
+		if (!id)
+			throw new AppError(
+				ERROR_CODES.BAD_REQUEST,
+				'Falta id del producto a buscar',
+			);
+		if (!mongoose.isValidObjectId(id))
+			throw new AppError(
+				ERROR_CODES.BAD_REQUEST,
+				`La ID proporcionada no es un ID válido.`,
+			);
+
+		const product = await ProductsRepository.getById(id);
+
+		if (!product) throw new AppError(ERROR_CODES.PRODUCT_NOT_FOUND);
+
+		return product;
+	}
+
 	static async create({
 		name,
 		price,
@@ -40,24 +65,6 @@ class ProductsService {
 			stock,
 			status,
 		});
-
-		return product;
-	}
-
-	static async findAll() {
-		const products = await ProductsRepository.findAll();
-		return products;
-	}
-
-	static async findById(id) {
-		if (!id)
-			throw new AppError(
-				ERROR_CODES.BAD_REQUEST,
-				'Falta id del producto a buscar',
-			);
-		const product = await ProductsRepository.findById(id);
-
-		if (!product) throw new AppError(ERROR_CODES.PRODUCT_NOT_FOUND);
 
 		return product;
 	}

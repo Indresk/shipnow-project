@@ -7,6 +7,30 @@ import { ERROR_CODES } from '../errors/error.codes.js';
 import AppError from '../errors/app.error.js';
 
 class OrdersService {
+	static async getAll() {
+		const allOrders = await OrdersRepository.getAll();
+
+		return allOrders;
+	}
+
+	static async getById(id) {
+		if (!id)
+			throw new AppError(
+				ERROR_CODES.BAD_REQUEST,
+				'Id de orden no proporcionada',
+			);
+		if (!mongoose.isValidObjectId(id))
+			throw new AppError(
+				ERROR_CODES.BAD_REQUEST,
+				`La ID proporcionada no es un ID válido.`,
+			);
+
+		const selectedOrder = await OrdersRepository.getById(id);
+		if (!selectedOrder) throw new AppError(ERROR_CODES.ORDER_NOT_FOUND);
+
+		return selectedOrder;
+	}
+
 	static async create({
 		customerName,
 		customer,
@@ -18,7 +42,7 @@ class OrdersService {
 	}) {
 		const fixItems = [];
 
-		const userData = await UserService.findById(customer);
+		const userData = await UserService.getById(customer);
 
 		if (!customerName || !address || !weight)
 			throw new AppError(
@@ -103,7 +127,7 @@ class OrdersService {
 				);
 			}
 
-			const foundProduct = await ProductsRepository.findById(product);
+			const foundProduct = await ProductsRepository.getById(product);
 
 			if (!foundProduct) {
 				throw new AppError(
@@ -134,30 +158,6 @@ class OrdersService {
 		});
 
 		return { orderId: order._id, shippingCost: shippingCost };
-	}
-
-	static async getAll() {
-		const allOrders = await OrdersRepository.getAll();
-
-		return allOrders;
-	}
-
-	static async getById(id) {
-		if (!id)
-			throw new AppError(
-				ERROR_CODES.BAD_REQUEST,
-				'Id de orden no proporcionada',
-			);
-		if (!mongoose.isValidObjectId(id))
-			throw new AppError(
-				ERROR_CODES.BAD_REQUEST,
-				`La ID proporcionada no es un ID válido.`,
-			);
-
-		const selectedOrder = await OrdersRepository.getById(id);
-		if (!selectedOrder) throw new AppError(ERROR_CODES.ORDER_NOT_FOUND);
-
-		return selectedOrder;
 	}
 
 	static async updateStatus(status, id) {

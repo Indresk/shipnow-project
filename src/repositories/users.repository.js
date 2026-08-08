@@ -2,6 +2,16 @@ import User from '../models/user.js';
 import { USER_ROLES } from '../constants/index.js';
 
 class UserRepository {
+	static async getAll() {
+		const users = await User.find();
+		return users;
+	}
+
+	static async getById(id) {
+		const user = await User.findById(id);
+		return user;
+	}
+
 	static async create({ name, email, role }) {
 		const user = await User.create({
 			name,
@@ -9,16 +19,6 @@ class UserRepository {
 			role: role || USER_ROLES.USER,
 		});
 
-		return user;
-	}
-
-	static async findAll() {
-		const users = await User.find();
-		return users;
-	}
-
-	static async findById(id) {
-		const user = await User.findById(id);
 		return user;
 	}
 

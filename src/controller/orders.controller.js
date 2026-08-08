@@ -1,7 +1,31 @@
 import OrdersService from '../services/orders.service.js';
 import sendNotification from '../services/notifications.js';
+import logger from '../utils/logger.js';
 
 class OrdersController {
+	static async getAll(req, res, next) {
+		try {
+			const orders = await OrdersService.getAll();
+
+			logger.http(`GET /api/orders 200`);
+			res.status(200).json(orders);
+		} catch (error) {
+			next(error);
+		}
+	}
+
+	static async getById(req, res, next) {
+		try {
+			const { id } = req.params;
+			const selectedOrder = await OrdersService.getById(id);
+
+			logger.http(`GET /api/orders/${id} 200`);
+			res.status(200).json(selectedOrder);
+		} catch (error) {
+			next(error);
+		}
+	}
+
 	static async create(req, res, next) {
 		try {
 			const {
@@ -31,28 +55,9 @@ class OrdersController {
 					order.shippingCost,
 			);
 
-			console.log('Order creada:', order.orderId);
+			logger.debug(`Order creada: ${order.orderId}`);
+			logger.http(`POST /api/orders/${order.orderId} 201`);
 			res.status(201).json(order);
-		} catch (error) {
-			next(error);
-		}
-	}
-
-	static async getAll(req, res, next) {
-		try {
-			const orders = await OrdersService.getAll();
-			res.json(orders);
-		} catch (error) {
-			next(error);
-		}
-	}
-
-	static async getById(req, res, next) {
-		try {
-			const { id } = req.params;
-			const selectedOrder = await OrdersService.getById(id);
-
-			res.json(selectedOrder);
 		} catch (error) {
 			next(error);
 		}
@@ -64,13 +69,11 @@ class OrdersController {
 			const { status } = req.body;
 			const newOrderStatus = await OrdersService.updateStatus(status, id);
 
-			console.log(
-				'Order actualizada:',
-				newOrderStatus._id.toString(),
-				'->',
-				newOrderStatus.status,
+			logger.debug(
+				`Order actualizada: ${newOrderStatus._id} -> ${newOrderStatus.status}`,
 			);
-			res.json(newOrderStatus);
+			logger.http(`PATCH /api/orders/${id}/${newOrderStatus.status} 200`);
+			res.status(200).json(newOrderStatus);
 		} catch (error) {
 			next(error);
 		}

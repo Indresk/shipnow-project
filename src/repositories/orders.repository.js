@@ -1,6 +1,16 @@
 import Order from '../models/order.js';
 
 class OrdersRepository {
+	static async getAll() {
+		const allOrders = await Order.find();
+		return allOrders;
+	}
+
+	static async getById(id) {
+		const selectedOrder = await Order.findById(id);
+		return selectedOrder;
+	}
+
 	static async create({
 		customerName,
 		customer,
@@ -25,16 +35,6 @@ class OrdersRepository {
 		});
 
 		return newOrder;
-	}
-
-	static async getAll() {
-		const allOrders = await Order.find();
-		return allOrders;
-	}
-
-	static async getById(id) {
-		const selectedOrder = await Order.findById(id);
-		return selectedOrder;
 	}
 
 	static async updateStatus(newStatus, id) {

@@ -5,10 +5,12 @@ class DeliveriesRepository {
 		const deliveries = await Delivery.find();
 		return deliveries;
 	}
+
 	static async getById(id) {
 		const delivery = await Delivery.findById(id);
 		return delivery;
 	}
+
 	static async create({ orderId, courierId, status, assignedAt }) {
 		const delivery = await Delivery.create({
 			orderId,
@@ -18,6 +20,7 @@ class DeliveriesRepository {
 		});
 		return delivery;
 	}
+
 	static async update(id, newStatus) {
 		const deliveryUpdated = await Delivery.findByIdAndUpdate(
 			id,
