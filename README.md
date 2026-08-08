@@ -43,7 +43,7 @@ Hay un endpoint para probar todos los niveles de log, este se encuentra en la ru
 
 ### Archivos de log
 
-Los archivos de log solo contienen los niveles de log `error` y `fatal`, y se generan en la carpeta `logs` en la raíz del proyecto. Estos archivos tienen una duracion de 14 días y un maximo de tamaño de 20MB, luego de esto se generan nuevos archivos de log y los viejos se eliminan.
+Los archivos de log solo contienen los niveles de log `error` y `fatal`, y se generan en la carpeta `logs` en la raíz del proyecto. Estos archivos estan siendo generados con la libreria de apoyo para **winston**, [winston-daily-rotate-file](https://www.npmjs.com/package/winston-daily-rotate-file). Estan configurados con una duracion de **14 días** y un maximo de tamaño de **20MB**, luego de esto se generan nuevos archivos de log y los viejos se eliminan.
 
 ### Git ignore y los logs
 
