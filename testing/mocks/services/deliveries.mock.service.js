@@ -1,9 +1,9 @@
 import { faker } from '@faker-js/faker';
-import OrdersRepository from '../../src/repositories/orders.repository.js';
-import DeliveriesRepository from '../../src/repositories/deliveries.repository.js';
-import { DELIVERY_STATUS } from '../../src/constants/index.js';
-import AppError from '../../src/errors/app.error.js';
-import { ERROR_CODES } from '../../src/errors/error.codes.js';
+import OrdersRepository from '../../../src/repositories/orders.repository.js';
+import DeliveriesRepository from '../../../src/repositories/deliveries.repository.js';
+import { DELIVERY_STATUS } from '../../../src/constants/index.js';
+import AppError from '../../../src/errors/app.error.js';
+import { ERROR_CODES } from '../../../src/errors/error.codes.js';
 
 class DeliveryMockService {
 	static generate({ availableOrders }) {

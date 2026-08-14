@@ -1,0 +1,89 @@
+paths:
+  /api/couriers:
+    get:
+      summary: Lista todos los repartidores
+      tags:
+        - Couriers
+      responses:
+        '200':
+          description: Lista de couriers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Courier'
+        '500':
+          description: Error interno
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    post:
+      summary: Crea un nuevo repartidor
+      tags:
+        - Couriers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                zone:
+                  type: string
+                available:
+                  type: boolean
+              required: [name, zone]
+              example:
+                name: Franco Repartidor
+                zone: GBA
+                available: true
+      responses:
+        '201':
+          description: Courier creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Courier'
+        '400':
+          description: Bad request (faltan datos)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/couriers/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: ObjectId del courier
+    get:
+      summary: Obtiene un courier por id
+      tags:
+        - Couriers
+      responses:
+        '200':
+          description: Courier encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Courier'
+        '400':
+          description: Id inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Courier no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'

@@ -1,0 +1,13 @@
+paths:
+  /api/logger:
+    get:
+      summary: Probar niveles del logger para validar el funcionamiento del logger en la aplicación, NO es una funcionalidad del negocio
+      tags:
+        - Logger
+      responses:
+        '200':
+          description: Logs generados correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessMessage'

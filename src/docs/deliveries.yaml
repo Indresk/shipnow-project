@@ -1,0 +1,134 @@
+paths:
+  /api/deliveries:
+    get:
+      summary: Lista todas las entregas
+      tags:
+        - Deliveries
+      responses:
+        '200':
+          description: Lista de entregas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Delivery'
+        '500':
+          description: Error interno
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    post:
+      summary: Crea una entrega vinculando order y courier
+      tags:
+        - Deliveries
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                orderId:
+                  type: string
+                courierId:
+                  type: string
+                status:
+                  type: string
+                  enum: [assigned, in_transit, delivered]
+              required: [orderId, courierId]
+              example:
+                orderId: 64a000000000000000000010
+                courierId: 64a000000000000000000100
+                status: assigned
+      responses:
+        '201':
+          description: Delivery creada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Delivery'
+        '400':
+          description: Bad request (faltan campos)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Order o Courier no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/deliveries/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: ObjectId de la delivery
+    get:
+      summary: Obtiene una entrega por id (incluye tracking)
+      tags:
+        - Deliveries
+      responses:
+        '200':
+          description: Delivery encontrado con estado de tracking
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeliveryWithTracking'
+        '404':
+          description: Delivery no encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/deliveries/{id}/status:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    patch:
+      summary: Actualiza el estado de una entrega
+      tags:
+        - Deliveries
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum: [assigned, in_transit, delivered]
+              required: [status]
+              example:
+                status: delivered
+      responses:
+        '200':
+          description: Delivery actualizada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Delivery'
+        '400':
+          description: Estado inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Delivery no encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'

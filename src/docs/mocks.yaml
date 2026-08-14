@@ -1,0 +1,455 @@
+paths:
+  /api/mocks/mockingusers:
+    get:
+      summary: Genera usuarios mock (no guarda)
+      tags:
+        - Mocks
+      parameters:
+        - name: users
+          in: query
+          required: true
+          description: Cantidad de mock que se deben generar
+          schema:
+            type: integer
+            minimum: 1
+            example: 5
+      responses:
+        '200':
+          description: Lista de usuarios generados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '400':
+          description: Cantidad inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    post:
+      summary: Genera e inserta usuarios mock en DB
+      tags:
+        - Mocks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                users:
+                  type: integer
+              required: [users]
+              example:
+                users: 5
+      responses:
+        '201':
+          description: Usuarios insertados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '400':
+          description: Cantidad inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Error generando mocks (p.ej. falta data en DB)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/mocks/mockingproducts:
+    get:
+      summary: Genera productos mock (no guarda)
+      tags:
+        - Mocks
+      parameters:
+        - name: products
+          in: query
+          required: true
+          description: Cantidad de mock que se deben generar
+          schema:
+            type: integer
+            minimum: 1
+            example: 5
+      responses:
+        '200':
+          description: Lista de productos generados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        '400':
+          description: Cantidad inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      summary: Genera e inserta productos mock en DB
+      tags:
+        - Mocks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                products:
+                  type: integer
+              required: [products]
+              example:
+                products: 10
+      responses:
+        '200':
+          description: Lista de productos generados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        '400':
+          description: Cantidad inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/mocks/mockingorders:
+    get:
+      summary: Genera orders mock (no guarda)
+      tags:
+        - Mocks
+      parameters:
+        - name: orders
+          in: query
+          required: true
+          description: Cantidad de mock que se deben generar
+          schema:
+            type: integer
+            minimum: 1
+            example: 5
+      responses:
+        '200':
+          description: Lista de orders generados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        '400':
+          description: Cantidad inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Error generando mocks (p.ej. falta data en DB)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      summary: Genera e inserta orders mock en DB
+      tags:
+        - Mocks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                orders:
+                  type: integer
+              required: [orders]
+              example:
+                orders: 5
+      responses:
+        '200':
+          description: Lista de orders generados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        '400':
+          description: Cantidad inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Error generando mocks (p.ej. falta data en DB)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/mocks/mockingcouriers:
+    get:
+      summary: Genera couriers mock (no guarda)
+      tags:
+        - Mocks
+      parameters:
+        - name: couriers
+          in: query
+          required: true
+          description: Cantidad de mock que se deben generar
+          schema:
+            type: integer
+            minimum: 1
+            example: 5
+      responses:
+        '200':
+          description: Lista de couriers generados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Courier'
+        '400':
+          description: Cantidad inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    post:
+      summary: Genera e inserta couriers mock en DB
+      tags:
+        - Mocks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                couriers:
+                  type: integer
+              required: [couriers]
+              example:
+                couriers: 5
+      responses:
+        '201':
+          description: Couriers insertados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Courier'
+        '400':
+          description: Cantidad inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Error generando mocks (p.ej. falta data en DB)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/mocks/mockingdeliveries:
+    get:
+      summary: Genera deliveries mock (no guarda)
+      tags:
+        - Mocks
+      parameters:
+        - name: deliveries
+          in: query
+          required: true
+          description: Cantidad de mock que se deben generar
+          schema:
+            type: integer
+            minimum: 1
+            example: 5
+      responses:
+        '200':
+          description: Lista de deliveries generados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Delivery'
+        '400':
+          description: Cantidad inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Error generando mocks (p.ej. falta data en DB)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      summary: Genera e inserta deliveries mock en DB
+      tags:
+        - Mocks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                deliveries:
+                  type: integer
+              required: [deliveries]
+              example:
+                orders: 5
+      responses:
+        '200':
+          description: Lista de deliveries insertados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Delivery'
+        '400':
+          description: Cantidad inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Error generando mocks (p.ej. falta data en DB)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/mocks/generateData:
+    get:
+      summary: Genera múltiples tipos de mocks según body (no guarda)
+      tags:
+        - Mocks
+      parameters:
+        - name: users
+          in: query
+          required: false
+          description: Cantidad de users mock que se deben generar
+          schema:
+            type: integer
+            minimum: 1
+            example: 5
+        - name: products
+          in: query
+          required: false
+          description: Cantidad de products mock que se deben generar
+          schema:
+            type: integer
+            minimum: 1
+            example: 5
+        - name: orders
+          in: query
+          required: false
+          description: Cantidad de orders mock que se deben generar
+          schema:
+            type: integer
+            minimum: 1
+            example: 5
+        - name: deliveries
+          in: query
+          required: false
+          description: Cantidad de deliveries mock que se deben generar
+          schema:
+            type: integer
+            minimum: 1
+            example: 5
+        - name: couriers
+          in: query
+          required: false
+          description: Cantidad de couriers mock que se deben generar
+          schema:
+            type: integer
+            minimum: 1
+            example: 5
+      responses:
+        '200':
+          description: Objetos generados por tipo
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '400':
+          description: Cantidad inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Error generando mocks (p.ej. falta data en DB)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      summary: Genera e inserta múltiples mocks en DB según body
+      tags:
+        - Mocks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                users:
+                  type: integer
+                products:
+                  type: integer
+                orders:
+                  type: integer
+                deliveries:
+                  type: integer
+                couriers:
+                  type: integer
+              example:
+                users: 5
+                products: 10
+                orders: 5
+      responses:
+        '201':
+          description: Objetos insertados en DB por tipo
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '400':
+          description: Cantidad inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Error generando mocks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'

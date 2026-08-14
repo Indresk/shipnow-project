@@ -18,6 +18,16 @@ npm run dev
 
 El .env debe seguir la estrucutra propuesta en el archivo [.env.example](./.env.example).
 
+## Documentación de la API con Swagger
+
+Actualmente todos los modulos de la API se encuentran documentados con Swagger, y se puede acceder a la documentación de la API en la ruta `/api/docs` una vez levantado el servidor.
+
+La ruta `/api/docs` solo se encuentra disponible con la variable de entorno `NODE_ENV` en `development`.
+
+La documentación esta escrita en formato OpenAPI y se encuentra bajo la ruta `./src/docs/` en archivos `.yaml` separados por modulo.
+
+Nota: No todos los ejemplos registrados en la API son exactos para todos los endpoints ya que estamos reutilizando los esquemas, por lo general van a variar en la existencia de algunos campos como `_id` y `__v`, pero la idea es que sirvan como guia para el uso de los endpoints.
+
 ## Sistema de logger para registro de temporal y persistente de eventos
 
 Para el registro de eventos del sistema se utiliza la libreria [winston](https://www.npmjs.com/package/winston) y se encuentra configurada en el archivo [logger.js](./src/utils/logger.js).

@@ -1,4 +1,6 @@
 import express from 'express';
+import { swaggerSpecs } from './docs/swagger.config.js';
+import swaggerUiExpress from 'swagger-ui-express';
 
 import ordersRouter from './routes/orders.js';
 import usersRouter from './routes/users.js';
@@ -33,11 +35,18 @@ app.use('/api/deliveries', deliveriesRouter);
 if (config.NODE_ENV === ENVIRONMENT.DEV) {
 	app.use('/api/mocks', mocksRouter);
 	app.use('/api/logger', loggerRouter);
+	app.use(
+		'/api/docs',
+		swaggerUiExpress.serve,
+		swaggerUiExpress.setup(swaggerSpecs),
+	);
 }
 
 // Ruta de health check basica.
 app.get('/', (req, res) => {
-	res.send('ShipNow API v1 - corriendo');
+	res
+		.status(200)
+		.json({ status: 'success', message: 'ShipNow API v1 - corriendo' });
 });
 
 // Dejamos esuchando los middlewares de error

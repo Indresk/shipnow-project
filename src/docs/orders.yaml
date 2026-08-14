@@ -1,0 +1,160 @@
+paths:
+  /api/orders:
+    get:
+      summary: Lista todos los pedidos
+      tags:
+        - Orders
+      responses:
+        '200':
+          description: Lista de orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        '500':
+          description: Error interno
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    post:
+      summary: Crea un nuevo pedido
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerName:
+                  type: string
+                customer:
+                  type: string
+                  description: ObjectId del usuario
+                address:
+                  type: string
+                weight:
+                  type: number
+                courierId:
+                  type: string
+                  description: ObjectId opcional del courier
+                items:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/OrderItem'
+                priority:
+                  type: string
+                  enum: [normal, high]
+              required:
+                [customerName, customer, address, weight, items, courierId]
+              example:
+                customerName: Ana Torres
+                customer: 64a000000000000000000001
+                address: Av Centenario 45
+                weight: 5
+                items:
+                  - product: 64a000000000000000000002
+                    quantity: 2
+                priority: normal
+                courierId: 6a76a1c2ff28511eac04d43d
+      responses:
+        '201':
+          description: Orden creada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderCreateResponse'
+        '400':
+          description: Bad request (faltan campos, items vacíos, formatos inválidos)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Usuario o producto no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/orders/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: ObjectId de la orden
+    get:
+      summary: Obtiene una orden por id
+      tags:
+        - Orders
+      responses:
+        '200':
+          description: Orden encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          description: Id inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Orden no encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/orders/{id}/status:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: ObjectId de la orden
+    patch:
+      summary: Actualiza el estado de una orden
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum: [pending, in_transit, delivered]
+              required: [status]
+              example:
+                status: in_transit
+      responses:
+        '200':
+          description: Orden actualizada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          description: Estado inválido o id faltante
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Orden no encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'

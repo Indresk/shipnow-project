@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
-import { USER_ROLES } from '../../src/constants/index.js';
-import UserRepository from '../../src/repositories/users.repository.js';
-import AppError from '../../src/errors/app.error.js';
-import { ERROR_CODES } from '../../src/errors/error.codes.js';
+import { USER_ROLES } from '../../../src/constants/index.js';
+import UserRepository from '../../../src/repositories/users.repository.js';
+import AppError from '../../../src/errors/app.error.js';
+import { ERROR_CODES } from '../../../src/errors/error.codes.js';
 
 class UserMockService {
 	static generate() {

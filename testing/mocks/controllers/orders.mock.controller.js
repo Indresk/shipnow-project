@@ -1,10 +1,10 @@
-import logger from '../../src/utils/logger.js';
+import logger from '../../../src/utils/logger.js';
 import OrderMockService from '../services/orders.mock.service.js';
 
 class OrderMockController {
 	static async generate(req, res, next) {
 		try {
-			const { orders } = req.body;
+			const { orders } = req.query;
 			logger.debug(`Se solicitaron generar ${orders} mock orders`);
 			const ordersGenerated = await OrderMockService.generateMultiple(orders);
 

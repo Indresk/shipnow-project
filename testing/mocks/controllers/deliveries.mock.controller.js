@@ -1,10 +1,10 @@
-import logger from '../../src/utils/logger.js';
+import logger from '../../../src/utils/logger.js';
 import DeliveryMockService from '../services/deliveries.mock.service.js';
 
 class DeliveryMockController {
 	static async generate(req, res, next) {
 		try {
-			const { deliveries } = req.body;
+			const { deliveries } = req.query;
 			logger.debug(`Se solicitaron generar ${deliveries} mock deliveries`);
 			const deliveriesGenerated =
 				await DeliveryMockService.generateMultiple(deliveries);

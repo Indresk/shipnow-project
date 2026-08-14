@@ -66,7 +66,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Ana Lopez\",\n  \"email\": \"ana@example.com\"\n}",
+              "raw": "{\n  \"name\": \"Ana Lopez2\",\n  \"email\": \"ana@example.com\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -123,7 +123,7 @@
               "variable": [
                 {
                   "key": "id",
-                  "value": "PEGAR_ID_AQUI"
+                  "value": "6a73e8954a2a2e1cbe53e433"
                 }
               ]
             }
@@ -166,7 +166,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Caja mediana\",\n  \"price\": 200,\n  \"stock\": 20,\n  \"status\": \"available\"\n}",
+              "raw": "{\n  \"name\": \"Caja mediana2\",\n  \"price\": 20,\n  \"stock\": 48,\n  \"status\": \"available\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -223,7 +223,7 @@
               "variable": [
                 {
                   "key": "id",
-                  "value": "6a619d51fb7c822aa6068b87"
+                  "value": "6a73e8954a2a2e1cbe53e43a"
                 }
               ]
             }
@@ -266,7 +266,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Moto Express\",\n  \"zone\": \"Centro\",\n  \"available\": true\n}",
+              "raw": "{\n  \"name\": \"Moto Express\",\n  \"zone\": \"Centro\",\n  \"available\": false\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -323,7 +323,7 @@
               "variable": [
                 {
                   "key": "id",
-                  "value": "6a619f152c8b2af12adc8da2"
+                  "value": "6a73e8954a2a2e1cbe53e445"
                 }
               ]
             }
@@ -366,7 +366,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"customerName\": \"Ana Lopez\",\n  \"customer\": \"6a61801c605fc9eed550b8aa\",\n  \"address\": \"Calle Falsa 123\",\n  \"weight\": 5,\n  \"priority\": \"normal\",\n  \"items\": [\n    { \"product\": \"6a619d51fb7c822aa6068b87\", \"quantity\": 2}\n  ],\n  \"courierId\": \"6a619f152c8b2af12adc8da2\"\n}",
+              "raw": "{\n  \"customerName\": \"Arturo Oberbrunner\",\n  \"customer\": \"6a73e8954a2a2e1cbe53e435\",\n  \"address\": \"Calle Falsa 123\",\n  \"weight\": 5,\n  \"priority\": \"normal\",\n  \"items\": [\n    { \"product\": \"6a73e8954a2a2e1cbe53e43e\", \"quantity\": 2}\n  ],\n  \"courierId\": \"6a76a1c2ff28511eac04d43d\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -423,7 +423,7 @@
               "variable": [
                 {
                   "key": "id",
-                  "value": "6a619f1c2c8b2af12adc8da6"
+                  "value": "6a76a2af9c0f57b44d0b3cc"
                 }
               ]
             }
@@ -462,7 +462,7 @@
               "variable": [
                 {
                   "key": "id",
-                  "value": "6a619f1c2c8b2af12adc8da6"
+                  "value": "6a76a2af9c0f57b44d0b3cc4"
                 }
               ]
             },
@@ -514,7 +514,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"orderId\": \"6a619f1c2c8b2af12adc8da6\",\n  \"courierId\": \"6a619f152c8b2af12adc8da2\",\n  \"status\": \"assigned\"\n}",
+              "raw": "{\n  \"orderId\": \"6a76a2af9c0f57b44d0b3cc4\",\n  \"courierId\": \"6a73e8954a2a2e1cbe53e446\",\n  \"status\": \"assigned\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -571,7 +571,7 @@
               "variable": [
                 {
                   "key": "id",
-                  "value": "6a666342af70fb9488e14e85"
+                  "value": "6a76a3279c0f57b44d0b3cd0"
                 }
               ]
             }
@@ -610,7 +610,7 @@
               "variable": [
                 {
                   "key": "id",
-                  "value": "6a666342af70fb9488e14e85"
+                  "value": "6a76a3279c0f57b44d0b3cd0"
                 }
               ]
             },
@@ -632,9 +632,6 @@
       "item": [
         {
           "name": "GetUsers",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
           "request": {
             "method": "GET",
             "header": [],
@@ -643,7 +640,7 @@
             },
             "description": "",
             "url": {
-              "raw": "{{baseUrl}}/api/mocks/mockingusers",
+              "raw": "{{baseUrl}}/api/mocks/mockingusers?users=1",
               "protocol": "",
               "host": [
                 "{{baseUrl}}"
@@ -651,27 +648,20 @@
               "path": [
                 "api",
                 "mocks",
-                "mockingusers"
+                "mockingusers?users=1"
               ],
-              "query": [],
-              "variable": []
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"users\":10\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+              "query": [
+                {
+                  "key": "users",
+                  "value": "1"
                 }
-              }
+              ],
+              "variable": []
             }
           }
         },
         {
           "name": "GetProducts",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
           "request": {
             "method": "GET",
             "header": [],
@@ -680,7 +670,7 @@
             },
             "description": "",
             "url": {
-              "raw": "{{baseUrl}}/api/mocks/mockingproducts",
+              "raw": "{{baseUrl}}/api/mocks/mockingproducts?products=10",
               "protocol": "",
               "host": [
                 "{{baseUrl}}"
@@ -688,27 +678,20 @@
               "path": [
                 "api",
                 "mocks",
-                "mockingproducts"
+                "mockingproducts?products=10"
               ],
-              "query": [],
-              "variable": []
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"products\":10\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+              "query": [
+                {
+                  "key": "products",
+                  "value": "10"
                 }
-              }
+              ],
+              "variable": []
             }
           }
         },
         {
           "name": "GetOrders",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
           "request": {
             "method": "GET",
             "header": [],
@@ -717,7 +700,7 @@
             },
             "description": "",
             "url": {
-              "raw": "{{baseUrl}}/api/mocks/mockingorders",
+              "raw": "{{baseUrl}}/api/mocks/mockingorders?orders=2",
               "protocol": "",
               "host": [
                 "{{baseUrl}}"
@@ -725,27 +708,20 @@
               "path": [
                 "api",
                 "mocks",
-                "mockingorders"
+                "mockingorders?orders=2"
               ],
-              "query": [],
-              "variable": []
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"orders\":1\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+              "query": [
+                {
+                  "key": "orders",
+                  "value": "2"
                 }
-              }
+              ],
+              "variable": []
             }
           }
         },
         {
           "name": "GetDeliveries",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
           "request": {
             "method": "GET",
             "header": [],
@@ -754,7 +730,7 @@
             },
             "description": "",
             "url": {
-              "raw": "{{baseUrl}}/api/mocks/mockingdeliveries",
+              "raw": "{{baseUrl}}/api/mocks/mockingdeliveries?deliveries=4",
               "protocol": "",
               "host": [
                 "{{baseUrl}}"
@@ -762,27 +738,20 @@
               "path": [
                 "api",
                 "mocks",
-                "mockingdeliveries"
+                "mockingdeliveries?deliveries=4"
               ],
-              "query": [],
-              "variable": []
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"deliveries\":10\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+              "query": [
+                {
+                  "key": "deliveries",
+                  "value": "4"
                 }
-              }
+              ],
+              "variable": []
             }
           }
         },
         {
           "name": "GetCouriers",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
           "request": {
             "method": "GET",
             "header": [],
@@ -791,7 +760,7 @@
             },
             "description": "",
             "url": {
-              "raw": "{{baseUrl}}/api/mocks/mockingcouriers",
+              "raw": "{{baseUrl}}/api/mocks/mockingcouriers?couriers=4",
               "protocol": "",
               "host": [
                 "{{baseUrl}}"
@@ -799,27 +768,20 @@
               "path": [
                 "api",
                 "mocks",
-                "mockingcouriers"
+                "mockingcouriers?couriers=4"
               ],
-              "query": [],
-              "variable": []
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"couriers\":10\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+              "query": [
+                {
+                  "key": "couriers",
+                  "value": "4"
                 }
-              }
+              ],
+              "variable": []
             }
           }
         },
         {
           "name": "GetAll",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
           "request": {
             "method": "GET",
             "header": [],
@@ -828,7 +790,7 @@
             },
             "description": "",
             "url": {
-              "raw": "{{baseUrl}}/api/mocks/generateData",
+              "raw": "{{baseUrl}}/api/mocks/generateData?users=1&products=2&orders=3&deliveries=5&couriers=1",
               "protocol": "",
               "host": [
                 "{{baseUrl}}"
@@ -836,19 +798,31 @@
               "path": [
                 "api",
                 "mocks",
-                "generateData"
+                "generateData?users=1&products=2&orders=3&deliveries=5&couriers=1"
               ],
-              "query": [],
-              "variable": []
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"users\": 1,\n  \"products\":2,\n  \"orders\":3,\n  \"deliveries\":5,\n  \"couriers\":1\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+              "query": [
+                {
+                  "key": "users",
+                  "value": "1"
+                },
+                {
+                  "key": "products",
+                  "value": "2"
+                },
+                {
+                  "key": "orders",
+                  "value": "3"
+                },
+                {
+                  "key": "deliveries",
+                  "value": "5"
+                },
+                {
+                  "key": "couriers",
+                  "value": "1"
                 }
-              }
+              ],
+              "variable": []
             }
           }
         },
@@ -877,7 +851,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"users\": 7,\n  \"products\":10,\n  \"orders\":1,\n  \"deliveries\":1,\n  \"couriers\":7\n}",
+              "raw": "{\n  \"users\": 5,\n  \"products\":10,\n  \"orders\":8,\n  \"deliveries\":5,\n  \"couriers\":3\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -887,6 +861,31 @@
           }
         }
       ]
+    },
+    {
+      "name": "Logget test",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{baseUrl}}/api/logger/",
+          "protocol": "",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "logger",
+            ""
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
     }
   ],
   "variable": [

@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
-import { PRODUCT_STATUS } from '../../src/constants/index.js';
-import ProductsRepository from '../../src/repositories/products.repository.js';
-import AppError from '../../src/errors/app.error.js';
-import { ERROR_CODES } from '../../src/errors/error.codes.js';
+import { PRODUCT_STATUS } from '../../../src/constants/index.js';
+import ProductsRepository from '../../../src/repositories/products.repository.js';
+import AppError from '../../../src/errors/app.error.js';
+import { ERROR_CODES } from '../../../src/errors/error.codes.js';
 
 class ProductMockService {
 	static generate() {

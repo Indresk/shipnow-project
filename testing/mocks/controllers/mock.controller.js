@@ -1,4 +1,4 @@
-import logger from '../../src/utils/logger.js';
+import logger from '../../../src/utils/logger.js';
 import CourierMockService from '../services/couriers.mock.service.js';
 import DeliveryMockService from '../services/deliveries.mock.service.js';
 import OrderMockService from '../services/orders.mock.service.js';
@@ -18,7 +18,7 @@ class MockController {
 		try {
 			const generatedEntries = await Promise.all(
 				Object.entries(generators).map(async ([key, service]) => {
-					const keyValue = req.body[key];
+					const keyValue = req.query[key];
 					if (keyValue == null) return null;
 
 					logger.debug(`Se solicitaron generar ${keyValue} mock ${key}`);

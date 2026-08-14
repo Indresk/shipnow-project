@@ -1,11 +1,11 @@
 import { faker } from '@faker-js/faker';
-import OrdersRepository from '../../src/repositories/orders.repository.js';
-import UserRepository from '../../src/repositories/users.repository.js';
-import { ORDER_PRIORITY, ORDER_STATUS } from '../../src/constants/index.js';
-import ProductsRepository from '../../src/repositories/products.repository.js';
-import CouriersRepository from '../../src/repositories/couriers.repository.js';
-import AppError from '../../src/errors/app.error.js';
-import { ERROR_CODES } from '../../src/errors/error.codes.js';
+import OrdersRepository from '../../../src/repositories/orders.repository.js';
+import UserRepository from '../../../src/repositories/users.repository.js';
+import { ORDER_PRIORITY, ORDER_STATUS } from '../../../src/constants/index.js';
+import ProductsRepository from '../../../src/repositories/products.repository.js';
+import CouriersRepository from '../../../src/repositories/couriers.repository.js';
+import AppError from '../../../src/errors/app.error.js';
+import { ERROR_CODES } from '../../../src/errors/error.codes.js';
 
 class OrderMockService {
 	static generate({ availableUsers, availableCouriers, availableProducts }) {

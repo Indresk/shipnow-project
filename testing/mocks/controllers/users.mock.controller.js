@@ -1,10 +1,10 @@
-import logger from '../../src/utils/logger.js';
+import logger from '../../../src/utils/logger.js';
 import UserMockService from '../services/users.mock.service.js';
 
 class UserMockController {
 	static async generate(req, res, next) {
 		try {
-			const { users } = req.body;
+			const { users } = req.query;
 			logger.debug(`Se solicitaron generar ${users} mock users`);
 			const usersGenerated = await UserMockService.generateMultiple(users);
 

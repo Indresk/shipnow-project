@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
-import CouriersRepository from '../../src/repositories/couriers.repository.js';
-import AppError from '../../src/errors/app.error.js';
-import { ERROR_CODES } from '../../src/errors/error.codes.js';
+import CouriersRepository from '../../../src/repositories/couriers.repository.js';
+import AppError from '../../../src/errors/app.error.js';
+import { ERROR_CODES } from '../../../src/errors/error.codes.js';
 
 class CourierMockService {
 	static generate() {

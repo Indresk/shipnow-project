@@ -1,10 +1,10 @@
-import logger from '../../src/utils/logger.js';
+import logger from '../../../src/utils/logger.js';
 import CourierMockService from '../services/couriers.mock.service.js';
 
 class CourierMockController {
 	static async generate(req, res, next) {
 		try {
-			const { couriers } = req.body;
+			const { couriers } = req.query;
 			logger.debug(`Se solicitaron generar ${couriers} mock couriers`);
 			const couriersGenerated =
 				await CourierMockService.generateMultiple(couriers);

@@ -1,0 +1,200 @@
+components:
+  schemas:
+    SuccessMessage:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        message:
+          type: string
+          example: ShipNow API v1 - corriendo
+
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: error
+        error:
+          type: string
+          description: Código interno del error
+        message:
+          type: string
+          description: Mensaje explicativo del error
+        details:
+          type: object
+          nullable: true
+      required: [status, error, message]
+
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ObjectId del usuario
+        name:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+          enum: [user, admin]
+      required: [name, email]
+      example:
+        _id: 64a000000000000000000001
+        name: Juan Perez
+        email: juan@example.com
+        role: user
+
+    Product:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        price:
+          type: number
+        stock:
+          type: integer
+        status:
+          type: string
+          enum: [available, out_of_stock]
+      required: [name, price]
+      example:
+        _id: 64a000000000000000000002
+        name: Televisor 50"
+        price: 45000
+        stock: 10
+        status: available
+
+    OrderItem:
+      type: object
+      properties:
+        product:
+          type: string
+          description: ObjectId del producto
+        quantity:
+          type: integer
+        priceAtPurchase:
+          type: number
+      required: [product, quantity]
+      example:
+        product: 64a000000000000000000002
+        quantity: 2
+        priceAtPurchase: 45000
+
+    Order:
+      type: object
+      properties:
+        _id:
+          type: string
+        customerName:
+          type: string
+        customer:
+          type: string
+          description: ObjectId del usuario
+        address:
+          type: string
+        weight:
+          type: number
+        cost:
+          type: number
+        status:
+          type: string
+          enum: [pending, in_transit, delivered]
+        priority:
+          type: string
+          enum: [normal, high]
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+        courierId:
+          type: string
+      required: [customerName, customer, address, weight, items, courierId]
+      example:
+        _id: 64a000000000000000000010
+        customerName: Maria Lopez
+        customer: 64a000000000000000000001
+        address: Calle Falsa 123
+        weight: 10
+        cost: 100
+        status: pending
+        priority: normal
+        items:
+          - product: 64a000000000000000000002
+            quantity: 1
+            priceAtPurchase: 45000
+        courierId: 64a000000000000000000100
+
+    OrderCreateResponse:
+      type: object
+      properties:
+        orderId:
+          type: string
+        shippingCost:
+          type: number
+      example:
+        orderId: 64a000000000000000000010
+        shippingCost: 100
+
+    Delivery:
+      type: object
+      properties:
+        _id:
+          type: string
+        orderId:
+          type: string
+        courierId:
+          type: string
+        status:
+          type: string
+          enum: [assigned, in_transit, delivered]
+        assignedAt:
+          type: string
+          format: date-time
+      required: [orderId, courierId]
+      example:
+        _id: 64a000000000000000000020
+        orderId: 64a000000000000000000010
+        courierId: 64a000000000000000000100
+        status: assigned
+        assignedAt: '2026-08-01T12:00:00Z'
+
+    DeliveryWithTracking:
+      type: object
+      properties:
+        delivery:
+          $ref: '#/components/schemas/Delivery'
+        tracking:
+          type: string
+          description: Estado retornado por el proveedor de tracking
+          enum: [assigned, in_transit, out_for_delivery, delivered]
+      example:
+        delivery:
+          _id: 64a000000000000000000020
+          orderId: 64a000000000000000000010
+          courierId: 64a000000000000000000100
+          status: assigned
+          assignedAt: '2026-08-01T12:00:00Z'
+        tracking: in_transit
+
+    Courier:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        zone:
+          type: string
+        available:
+          type: boolean
+      required: [name, zone]
+      example:
+        _id: 64a000000000000000000100
+        name: Juan Repartidor
+        zone: CABA
+        available: true
