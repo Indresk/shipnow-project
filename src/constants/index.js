@@ -28,6 +28,7 @@ export const DELIVERY_STATUS = {
 export const ENVIRONMENT = {
 	PROD: 'production',
 	DEV: 'development',
+	TEST: 'test',
 };
 
 [

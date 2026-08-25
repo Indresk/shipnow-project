@@ -17,11 +17,13 @@ import {
 import { ENVIRONMENT } from './constants/index.js';
 import config from './config/index.js';
 import logger from './utils/logger.js';
+import loggerMiddleware from './middlewares/logger.middleware.js';
 
 const app = express();
 
 // Middleware para parsear JSON.
 app.use(express.json());
+app.use(loggerMiddleware);
 
 // Montamos los routers. Toda la logica vive adentro de las rutas .
 app.use('/api/orders', ordersRouter);
@@ -32,7 +34,7 @@ app.use('/api/deliveries', deliveriesRouter);
 
 // Dejamos las rutas de Mock
 
-if (config.NODE_ENV === ENVIRONMENT.DEV) {
+if (config.NODE_ENV != ENVIRONMENT.PROD) {
 	app.use('/api/mocks', mocksRouter);
 	app.use('/api/logger', loggerRouter);
 	app.use(

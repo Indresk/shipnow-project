@@ -6,7 +6,6 @@ class DeliveriesController {
 		try {
 			const deliveries = await DeliveriesService.getAll();
 
-			logger.http(`GET /api/deliveries 200`);
 			res.status(200).json(deliveries);
 		} catch (error) {
 			next(error);
@@ -18,7 +17,6 @@ class DeliveriesController {
 			const { id } = req.params;
 			const deliveryStatus = await DeliveriesService.getById(id);
 
-			logger.http(`GET /api/deliveries/${id} 200`);
 			res.status(200).json(deliveryStatus);
 		} catch (error) {
 			next(error);
@@ -35,7 +33,6 @@ class DeliveriesController {
 			});
 
 			logger.debug(`Delivery creada: ${delivery._id}`);
-			logger.http(`POST /api/deliveries 201`);
 			res.status(201).json(delivery);
 		} catch (error) {
 			next(error);

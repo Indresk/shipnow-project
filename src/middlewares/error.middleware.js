@@ -19,7 +19,7 @@ export function errorHandler(err, req, res, next) {
 		message: err.message,
 	};
 
-	if (config.NODE_ENV === ENVIRONMENT.DEV && err.details)
+	if (config.NODE_ENV != ENVIRONMENT.PROD && err.details)
 		response.details = err.details;
 
 	const { message: loggerMessage, ...loggerData } = response;

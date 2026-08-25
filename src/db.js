@@ -4,9 +4,9 @@ import AppError from './errors/app.error.js';
 import { ERROR_CODES } from './errors/error.codes.js';
 import logger from './utils/logger.js';
 
-async function connectDB() {
+async function connectDB(uri = config.MONGODB_URI) {
 	try {
-		await mongoose.connect(config.MONGODB_URI);
+		await mongoose.connect(uri);
 		logger.info('Conectado a MongoDB');
 	} catch (error) {
 		// Manejo de errores crudo: solo logueamos y matamos el proceso.

@@ -7,7 +7,6 @@ class OrdersController {
 		try {
 			const orders = await OrdersService.getAll();
 
-			logger.http(`GET /api/orders 200`);
 			res.status(200).json(orders);
 		} catch (error) {
 			next(error);
@@ -19,7 +18,6 @@ class OrdersController {
 			const { id } = req.params;
 			const selectedOrder = await OrdersService.getById(id);
 
-			logger.http(`GET /api/orders/${id} 200`);
 			res.status(200).json(selectedOrder);
 		} catch (error) {
 			next(error);
@@ -56,7 +54,6 @@ class OrdersController {
 			);
 
 			logger.debug(`Order creada: ${order.orderId}`);
-			logger.http(`POST /api/orders/${order.orderId} 201`);
 			res.status(201).json(order);
 		} catch (error) {
 			next(error);
@@ -72,7 +69,6 @@ class OrdersController {
 			logger.debug(
 				`Order actualizada: ${newOrderStatus._id} -> ${newOrderStatus.status}`,
 			);
-			logger.http(`PATCH /api/orders/${id}/${newOrderStatus.status} 200`);
 			res.status(200).json(newOrderStatus);
 		} catch (error) {
 			next(error);

@@ -48,7 +48,7 @@ const consoleFormat = combine(
 );
 
 const consoleTransport = new transports.Console({
-	level: config.NODE_ENV === ENVIRONMENT.DEV ? 'debug' : 'info',
+	level: config.NODE_ENV != ENVIRONMENT.PROD ? 'debug' : 'info',
 	format: consoleFormat,
 });
 
@@ -68,7 +68,7 @@ const errorRotateTransport = new DailyRotateFile({
 
 const logger = createLogger({
 	levels: customLevels.levels,
-	level: config.NODE_ENV === ENVIRONMENT.DEV ? 'debug' : 'info',
+	level: config.NODE_ENV != ENVIRONMENT.PROD ? 'debug' : 'info',
 	format: logFormat,
 	transports: [consoleTransport, errorRotateTransport],
 });

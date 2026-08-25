@@ -6,7 +6,6 @@ class ProductsController {
 		try {
 			const products = await ProductsService.getAll();
 
-			logger.http(`GET /api/products 200`);
 			res.status(200).json(products);
 		} catch (error) {
 			next(error);
@@ -18,7 +17,6 @@ class ProductsController {
 			const { id } = req.params;
 			const product = await ProductsService.getById(id);
 
-			logger.http(`GET /api/products/${id} 200`);
 			res.status(200).json(product);
 		} catch (error) {
 			next(error);
@@ -37,7 +35,6 @@ class ProductsController {
 			});
 
 			logger.debug(`Product creado: ${product._id}`);
-			logger.http(`POST /api/products 201`);
 			res.status(201).json(product);
 		} catch (error) {
 			next(error);
