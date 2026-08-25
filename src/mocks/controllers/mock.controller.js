@@ -31,7 +31,6 @@ class MockController {
 				generatedEntries.filter((key, value) => key != null),
 			);
 
-			logger.http('GET /api/mocks/generateData 200');
 			res.status(200).json(generated);
 		} catch (error) {
 			next(error);
@@ -52,7 +51,6 @@ class MockController {
 				inserted[key] = await service.generateAndInsert(keyValue);
 			}
 
-			logger.http('POST /api/mocks/generateData 201');
 			res.status(201).json(inserted);
 		} catch (error) {
 			next(error);

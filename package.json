@@ -7,7 +7,7 @@
 	"scripts": {
 		"start": "node src/index.js",
 		"dev": "node --watch src/index.js",
-		"test": "mocha ./testing/*/*.test.js"
+		"test": "mocha --file ./testing/setup.js \"./testing/**/*.test.js\" --timeout 10000"
 	},
 	"keywords": [
 		"coderhouse",

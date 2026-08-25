@@ -1,10 +1,10 @@
 import express from 'express';
-import UserMockController from '../../testing/mocks/controllers/users.mock.controller.js';
-import OrderMockController from '../../testing/mocks/controllers/orders.mock.controller.js';
-import ProductMockController from '../../testing/mocks/controllers/products.mock.controller.js';
-import DeliveryMockController from '../../testing/mocks/controllers/deliveries.mock.controller.js';
-import CourierMockController from '../../testing/mocks/controllers/couriers.mock.controller.js';
-import MockController from '../../testing/mocks/controllers/mock.controller.js';
+import UserMockController from '../mocks/controllers/users.mock.controller.js';
+import OrderMockController from '../mocks/controllers/orders.mock.controller.js';
+import ProductMockController from '../mocks/controllers/products.mock.controller.js';
+import DeliveryMockController from '../mocks/controllers/deliveries.mock.controller.js';
+import CourierMockController from '../mocks/controllers/couriers.mock.controller.js';
+import MockController from '../mocks/controllers/mock.controller.js';
 
 const router = express.Router();
 

@@ -9,7 +9,6 @@ class ProductMockController {
 			const productsGenerated =
 				await ProductMockService.generateMultiple(products);
 
-			logger.http('GET /api/mocks/mockingproducts 200');
 			res.status(200).json(productsGenerated);
 		} catch (error) {
 			next(error);
@@ -22,7 +21,6 @@ class ProductMockController {
 			const productsInserted =
 				await ProductMockService.generateAndInsert(products);
 
-			logger.http('POST /api/mocks/mockingproducts 201');
 			res.status(201).json(productsInserted);
 		} catch (error) {
 			next(error);

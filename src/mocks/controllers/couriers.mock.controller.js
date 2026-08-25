@@ -9,7 +9,6 @@ class CourierMockController {
 			const couriersGenerated =
 				await CourierMockService.generateMultiple(couriers);
 
-			logger.http('GET /api/mocks/mockingcouriers 200');
 			res.status(200).json(couriersGenerated);
 		} catch (error) {
 			next(error);
@@ -22,7 +21,6 @@ class CourierMockController {
 			const couriersInserted =
 				await CourierMockService.generateAndInsert(couriers);
 
-			logger.http('POST /api/mocks/mockingcouriers 201');
 			res.status(201).json(couriersInserted);
 		} catch (error) {
 			next(error);

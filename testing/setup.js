@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import connectDB from '../src/db';
+import connectDB from '../src/db.js';
 import mongoose from 'mongoose';
 
 dotenv.config({ path: '.env.test' });

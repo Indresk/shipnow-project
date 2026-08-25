@@ -9,7 +9,6 @@ class DeliveryMockController {
 			const deliveriesGenerated =
 				await DeliveryMockService.generateMultiple(deliveries);
 
-			logger.http('GET /api/mocks/mockingdeliveries 200');
 			res.status(200).json(deliveriesGenerated);
 		} catch (error) {
 			next(error);
@@ -24,7 +23,6 @@ class DeliveryMockController {
 			const deliveriesInserted =
 				await DeliveryMockService.generateAndInsert(deliveries);
 
-			logger.http('POST /api/mocks/mockingdeliveries 201');
 			res.status(201).json(deliveriesInserted);
 		} catch (error) {
 			next(error);

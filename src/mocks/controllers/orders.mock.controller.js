@@ -8,7 +8,6 @@ class OrderMockController {
 			logger.debug(`Se solicitaron generar ${orders} mock orders`);
 			const ordersGenerated = await OrderMockService.generateMultiple(orders);
 
-			logger.http('GET /api/mocks/mockingorders 200');
 			res.status(200).json(ordersGenerated);
 		} catch (error) {
 			next(error);
@@ -20,7 +19,6 @@ class OrderMockController {
 			logger.debug(`Se solicitaron insertar en db ${orders} mock orders`);
 			const ordersInserted = await OrderMockService.generateAndInsert(orders);
 
-			logger.http('POST /api/mocks/mockingorders 201');
 			res.status(201).json(ordersInserted);
 		} catch (error) {
 			next(error);

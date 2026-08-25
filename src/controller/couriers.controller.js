@@ -1,4 +1,5 @@
 import CouriersService from '../services/couriers.service.js';
+import logger from '../utils/logger.js';
 
 class CourierController {
 	static async getAll(req, res, next) {

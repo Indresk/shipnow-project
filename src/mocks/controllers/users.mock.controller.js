@@ -8,7 +8,6 @@ class UserMockController {
 			logger.debug(`Se solicitaron generar ${users} mock users`);
 			const usersGenerated = await UserMockService.generateMultiple(users);
 
-			logger.http('GET /api/mocks/mockingusers 200');
 			res.status(200).json(usersGenerated);
 		} catch (error) {
 			next(error);
@@ -20,7 +19,6 @@ class UserMockController {
 			logger.debug(`Se solicitaron insertar en db ${users} mock users`);
 			const usersInserted = await UserMockService.generateAndInsert(users);
 
-			logger.http('POST /api/mocks/mockingusers 201');
 			res.status(201).json(usersInserted);
 		} catch (error) {
 			next(error);

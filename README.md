@@ -18,6 +18,20 @@ npm run dev
 
 El .env debe seguir la estrucutra propuesta en el archivo [.env.example](./.env.example).
 
+## Cómo correr los tests de la API
+
+Los test para la api se realizaron con Mocha, Chai y Supertest, y se encuentran en la carpeta `./src/testing/` separados por tipo de test en carpetas y por modulo en archivos.
+
+Actualmente en los testings se encuentran cubiertos los modulos de Users, Products, Orders, Deliveries y Couriers. Adicionalmente se encuentran testings para los endpoints de Mocking, test del logger, health check y para el middleware de manejo de errores. Suman en total 37 checks de testeo para la API.
+
+Para ejecutar la suite de tests de la API, se deben tener preparadas las variables de entorno en el archivo `.env.test` siguiendo la estructura de `.env.test.example`, de igual manera se recomienda apuntar la URI de la base de datos en el archivo de variables de entorno hacia una **base de datos de prueba** para evitar daños en la base de datos principal.
+
+Con todo lo anterior listo se puede correr el siguiente comando:
+
+```bash
+npm run test
+```
+
 ## Documentación de la API con Swagger
 
 Actualmente todos los modulos de la API se encuentran documentados con Swagger, y se puede acceder a la documentación de la API en la ruta `/api/docs` una vez levantado el servidor.
@@ -109,17 +123,25 @@ Para poder acceder a los endpoints de Mocking de la API, se debe levantar el ser
 Revisión individual:
 
 ```js
-GET / api / mocks / mockingusers; // Retorna un listado mock de la cantidad de usuarios proporcionada en el valor "users" del body en json de la solicitud.
-GET / api / mocks / mockingproducts; // Retorna un listado mock de la cantidad de productos proporcionada en el valor "products" del body en json de la solicitud.
-GET / api / mocks / mockingorders; // Retorna un listado mock de la cantidad de órdenes proporcionada en el valor "orders" del body en json de la solicitud.
-GET / api / mocks / mockingdeliveries; // Retorna un listado mock de la cantidad de entregas proporcionada en el valor "deliveries" del body en json de la solicitud.
-GET / api / mocks / mockingcouriers; // Retorna un listado mock de la cantidad de repartidores proporcionada en el valor "couriers" del body en json de la solicitud.
+GET / api / mocks / mockingusers; // Retorna un listado mock de la cantidad de usuarios proporcionada en el valor "users"  en query param de la solicitud.
+GET / api / mocks / mockingproducts; // Retorna un listado mock de la cantidad de productos proporcionada en el valor "products" en query param de la solicitud.
+GET / api / mocks / mockingorders; // Retorna un listado mock de la cantidad de órdenes proporcionada en el valor "orders" en query param de la solicitud.
+GET / api / mocks / mockingdeliveries; // Retorna un listado mock de la cantidad de entregas proporcionada en el valor "deliveries" en query param de la solicitud.
+GET / api / mocks / mockingcouriers; // Retorna un listado mock de la cantidad de repartidores proporcionada en el valor "couriers" en query param de la solicitud.
+```
+
+Nota: Estos endpoints de revisión individual pueden ser usados con el verbo POST para escribir en la debe pero sus respectivas claves valor deben ser enviadas en el body de la solicitud en formato JSON, por ejemplo:
+
+```json
+{
+	"users": 10
+}
 ```
 
 Revisión masiva y escritura en la DB:
 
 ```bash
-GET /api/mocks/generateData // Retorna un listado mock de la cantidad de usuarios, productos, órdenes, entregas y repartidores proporcionada en los valores "users", "products", "orders", "deliveries" y "couriers" del body en json de la solicitud.
+GET /api/mocks/generateData // Retorna un listado mock de la cantidad de usuarios, productos, órdenes, entregas y repartidores proporcionada en los valores "users", "products", "orders", "deliveries" y "couriers" en query param de la solicitud.
 POST /api/mocks/generateData // Retorna un listado mock de la cantidad de usuarios, productos, órdenes, entregas y repartidores proporcionada en los valores "users", "products", "orders", "deliveries" y "couriers" del body en json de la solicitud y los escribe en la base de datos.
 ```
 

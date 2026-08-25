@@ -46,7 +46,6 @@ class DeliveriesController {
 			const delivery = await DeliveriesService.update(id, status);
 
 			logger.debug(`Delivery actualizada: ${delivery._id} -> ${status}`);
-			logger.http(`PATCH /api/deliveries/${delivery._id}/${status} 200`);
 			res.status(200).json(delivery);
 		} catch (error) {
 			next(error);
