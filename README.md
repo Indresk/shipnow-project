@@ -18,11 +18,38 @@ npm run dev
 
 El .env debe seguir la estrucutra propuesta en el archivo [.env.example](./.env.example).
 
+## API de subida de archivos para Users y Deliveries
+
+Para los modelos Users y Deliveries se encuentra implementada una API de subida de archivos con [Multer](https://www.npmjs.com/package/multer) para poder subir documentos y pruebas de entregas respectivamente.
+
+Acorde a esto se actualizó el modelo de Users y Deliveries para poder almacenar la metadata en la base de datos de los elementos nuevos subidos en los archivos del sistema y se prepararon nuevos endpoints con este fin.
+
+```bash
+
+POST /api/users/:id/documents // Para subir documentos de un usuario
+POST /api/deliveries/:id/proofs // Para subir pruebas de entrega de un delivery
+
+```
+
+Para poder subir archivos a estos endpoints se debe enviar un body de tipo `multipart/form-data` con el archivo a subir en el campo `document` o `proof` respectivamente, así mismo se debe indicar en el campo `type` el tipo de documento que se está subiendo, esto nos permite asignar la carpeta apropiada al documento y relacionarlo correctamente en la metadata del usuario o delivery.
+
+Los valores permitidos para el campo `type` son los siguientes:
+
+```bash
+'courier_licence'
+'delivery_proof'
+'user_docs'
+```
+
+Los archivos a subir estan limitados a ser de tipo `image/webp`, `image/jpeg`, `image/png` o `application/pdf` y no pueden superar los 5MB de tamaño.
+
+La documentación y los testings fueron actualizados con estos nuevos endpoints para mantener la robustes de la API y su información actualizada.
+
 ## Cómo correr los tests de la API
 
 Los test para la api se realizaron con Mocha, Chai y Supertest, y se encuentran en la carpeta `./src/testing/` separados por tipo de test en carpetas y por modulo en archivos.
 
-Actualmente en los testings se encuentran cubiertos los modulos de Users, Products, Orders, Deliveries y Couriers. Adicionalmente se encuentran testings para los endpoints de Mocking, test del logger, health check y para el middleware de manejo de errores. Suman en total 37 checks de testeo para la API.
+Actualmente en los testings se encuentran cubiertos los modulos de Users, Products, Orders, Deliveries y Couriers Adicionalmente se implementaron testing de la API de Upload para los modules Users y Deliveries. Tambien se encuentran testings para los endpoints de Mocking, test del logger, health check y para el middleware de manejo de errores. Suman en total 43 checks de testeo para la API.
 
 Para ejecutar la suite de tests de la API, se deben tener preparadas las variables de entorno en el archivo `.env.test` siguiendo la estructura de `.env.test.example`, de igual manera se recomienda apuntar la URI de la base de datos en el archivo de variables de entorno hacia una **base de datos de prueba** para evitar daños en la base de datos principal.
 

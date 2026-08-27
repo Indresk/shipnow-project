@@ -1,0 +1,130 @@
+paths:
+  /api/users/{id}/documents:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: ObjectId del usuario
+        schema:
+          type: string
+          example: 64a000000000000000000001
+    post:
+      summary: Añade un documento a un usuario
+      tags:
+        - Uploads
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - type
+                - document
+              properties:
+                type:
+                  type: string
+                  description: Tipo de documento que se asociará al usuario
+                  enum: [courier_licence, delivery_proof, user_docs]
+                  example: user_docs
+                document:
+                  type: string
+                  format: binary
+                  description: Archivo PDF, JPEG, PNG o WebP de hasta 5 MB
+      responses:
+        '200':
+          description: Documento añadido al usuario
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadResponse'
+        '400':
+          description: Faltan datos, el tipo de documento o el archivo no son válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '413':
+          description: El archivo supera el límite de 5 MB
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/deliveries/{id}/proofs:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: ObjectId de la entrega
+        schema:
+          type: string
+          example: 64a000000000000000000020
+    post:
+      summary: Añade una prueba de entrega
+      tags:
+        - Uploads
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - type
+                - proof
+              properties:
+                type:
+                  type: string
+                  description: Tipo de archivo que se asociará a la entrega
+                  enum: [courier_licence, delivery_proof, user_docs]
+                  example: delivery_proof
+                proof:
+                  type: string
+                  format: binary
+                  description: Archivo PDF, JPEG, PNG o WebP de hasta 5 MB
+      responses:
+        '200':
+          description: Prueba añadida a la entrega
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadResponse'
+        '400':
+          description: Faltan datos, el tipo de documento o el archivo no son válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Entrega no encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '413':
+          description: El archivo supera el límite de 5 MB
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    UploadResponse:
+      type: object
+      required: [status, payload]
+      properties:
+        status:
+          type: string
+          example: success
+        payload:
+          oneOf:
+            - $ref: '#/components/schemas/User'
+            - $ref: '#/components/schemas/Delivery'

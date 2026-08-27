@@ -16,7 +16,7 @@ router.post('/', DeliveriesController.create);
 // PATCH /api/deliveries/:id/status -> actualiza el estado de una entrega
 router.patch('/:id/status', DeliveriesController.update);
 
-// POST /api/deliveries/:id/documents
+// POST /api/deliveries/:id/proofs
 router.post('/:id/proofs', uploadProof, DeliveriesController.addDoc);
 
 export default router;
