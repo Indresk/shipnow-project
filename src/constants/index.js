@@ -31,11 +31,18 @@ export const ENVIRONMENT = {
 	TEST: 'test',
 };
 
+export const DOCUMENT_TYPES = {
+	DRIVER_LICENCE: { type: 'courier_licence', path: 'uploads/licences' },
+	DELIVERY_PROOFS: { type: 'delivery_proof', path: 'uploads/proofs' },
+	DOCS: { type: 'user_docs', path: 'uploads/documents' },
+};
+
 [
-	USER_ROLES,
+	(USER_ROLES,
 	PRODUCT_STATUS,
 	ORDER_STATUS,
 	ORDER_PRIORITY,
 	DELIVERY_STATUS,
 	ENVIRONMENT,
+	DOCUMENT_TYPES),
 ].forEach(Object.freeze);

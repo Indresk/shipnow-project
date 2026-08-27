@@ -1,9 +1,7 @@
 import dotenv from 'dotenv';
-import connectDB from '../src/db.js';
 import mongoose from 'mongoose';
 
-dotenv.config({ path: '.env.test' });
-dotenv.config();
+dotenv.config({ path: './.env.test' });
 
 before(async () => {
 	const mongoDbUri = process.env.MONGODB_URI;
@@ -12,7 +10,7 @@ before(async () => {
 	}
 
 	if (mongoose.connection.readyState === 0) {
-		await connectDB(mongoDbUri);
+		await mongoose.connect(mongoDbUri);
 	}
 });
 

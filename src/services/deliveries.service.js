@@ -2,7 +2,7 @@ import DeliveriesRepository from '../repositories/deliveries.repository.js';
 import { getTrackingStatus } from '../services/trackingProvider.js';
 import OrdersService from './orders.service.js';
 import CouriersService from './couriers.service.js';
-import { DELIVERY_STATUS } from '../constants/index.js';
+import { DELIVERY_STATUS, DOCUMENT_TYPES } from '../constants/index.js';
 import mongoose from 'mongoose';
 import AppError from '../errors/app.error.js';
 import { ERROR_CODES } from '../errors/error.codes.js';
@@ -60,6 +60,41 @@ class DeliveriesService {
 		if (!delivery) throw new AppError(ERROR_CODES.DELIVERY_NOT_FOUND);
 
 		const deliveryUpdated = await DeliveriesRepository.update(id, status);
+		return deliveryUpdated;
+	}
+
+	static async addDoc({ id, type, file }) {
+		if (!id || !file) {
+			throw new AppError(ERROR_CODES.BAD_REQUEST);
+		}
+
+		const validTypes = Object.values(DOCUMENT_TYPES).map((doc) => doc.type);
+
+		if (!validTypes.includes(type)) {
+			throw new AppError(ERROR_CODES.INVALID_DOCUMENT_TYPE);
+		}
+
+		if (!mongoose.isValidObjectId(id)) {
+			throw new AppError(
+				ERROR_CODES.BAD_REQUEST,
+				`El id proporcionado no es válido`,
+			);
+		}
+
+		const delivery = await DeliveriesRepository.getById(id);
+		if (!delivery) throw new AppError(ERROR_CODES.DELIVERY_NOT_FOUND);
+
+		const doc = {
+			originalName: file.originalname,
+			fileName: file.filename,
+			path: file.path,
+			mimeType: file.mimetype,
+			size: file.size,
+			type,
+			uploadedAt: new Date(),
+		};
+
+		const deliveryUpdated = await DeliveriesRepository.addDoc(delivery.id, doc);
 		return deliveryUpdated;
 	}
 }

@@ -34,6 +34,19 @@ class DeliveriesRepository {
 		const newDeliveries = await Delivery.insertMany(deliveries);
 		return newDeliveries;
 	}
+
+	static async addDoc(id, fileInfo) {
+		const deliveryUpdated = await Delivery.findByIdAndUpdate(
+			id,
+			{
+				$push: {
+					proofs: fileInfo,
+				},
+			},
+			{ new: true },
+		).lean();
+		return deliveryUpdated;
+	}
 }
 
 export default DeliveriesRepository;

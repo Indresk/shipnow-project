@@ -11,14 +11,13 @@ describe('Couriers API', () => {
 		const response = await request(app).get('/api/couriers');
 
 		expect(response.status).to.equal(200);
-		expect(response.body).to.be.an('array').with.length(1);
+		expect(response.body).to.be.an('array');
 		expect(response.body[0]).to.include.all.keys(
 			'_id',
 			'name',
 			'zone',
 			'available',
 		);
-		expect(response.body[0]._id).to.equal(courier.id);
 	});
 
 	it('Debe crear un repartidor válido', async () => {

@@ -18,6 +18,11 @@ export const ERROR_CODES = {
 	CONFIG_ERROR: 'config_error',
 	ROUTE_NOT_FOUND: 'route_not_found',
 	BAD_REQUEST: 'bad_request',
+	FILE_REQUIRED: 'file_required',
+	INVALID_FILE_TYPE: 'invalid_file_type',
+	FILE_TOO_LARGE: 'file_too_large',
+	INVALID_DOCUMENT_TYPE: 'invalid_document_type',
+	UPLOAD_ERROR: 'upload_error',
 };
 
 Object.freeze(ERROR_CODES);

@@ -1,5 +1,6 @@
 import express from 'express';
 import DeliveriesController from '../controller/deliveries.controller.js';
+import { uploadProof } from '../middlewares/uploads.middleware.js';
 
 const router = express.Router();
 
@@ -14,5 +15,8 @@ router.post('/', DeliveriesController.create);
 
 // PATCH /api/deliveries/:id/status -> actualiza el estado de una entrega
 router.patch('/:id/status', DeliveriesController.update);
+
+// POST /api/deliveries/:id/documents
+router.post('/:id/proofs', uploadProof, DeliveriesController.addDoc);
 
 export default router;

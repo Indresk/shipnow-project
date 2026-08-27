@@ -77,4 +77,24 @@ export const errorsDictionary = {
 		statusCode: 400,
 		message: 'No se proporcionaron los datos necesarios para esa solicitud',
 	},
+	[ERROR_CODES.FILE_REQUIRED]: {
+		statusCode: 400,
+		message: 'Se requiere un archivo para completar esta solicitud',
+	},
+	[ERROR_CODES.INVALID_FILE_TYPE]: {
+		statusCode: 400,
+		message: 'El tipo de archivo proporcionado no es válido',
+	},
+	[ERROR_CODES.FILE_TOO_LARGE]: {
+		statusCode: 413,
+		message: 'El archivo excede el tamaño máximo permitido',
+	},
+	[ERROR_CODES.INVALID_DOCUMENT_TYPE]: {
+		statusCode: 400,
+		message: 'El tipo de documento proporcionado no es válido',
+	},
+	[ERROR_CODES.UPLOAD_ERROR]: {
+		statusCode: 500,
+		message: 'Ocurrió un error al intentar subir el archivo',
+	},
 };

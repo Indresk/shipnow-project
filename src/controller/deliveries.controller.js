@@ -51,6 +51,26 @@ class DeliveriesController {
 			next(error);
 		}
 	}
+
+	static async addDoc(req, res, next) {
+		try {
+			const { id } = req.params;
+			const { type } = req.body;
+			const file = req.file;
+
+			const updatedDelvery = await DeliveriesService.addDoc({ id, type, file });
+
+			logger.debug(
+				`Prueba añadida correctamente a la entrega: ${updatedDelvery._id} || tipo: ${type}`,
+			);
+			res.status(200).json({
+				status: 'success',
+				payload: updatedDelvery,
+			});
+		} catch (error) {
+			next(error);
+		}
+	}
 }
 
 export default DeliveriesController;

@@ -26,6 +26,19 @@ class UserRepository {
 		const newUsers = await User.insertMany(users);
 		return newUsers;
 	}
+
+	static async addDoc(id, fileInfo) {
+		const userUpdated = await User.findByIdAndUpdate(
+			id,
+			{
+				$push: {
+					documents: fileInfo,
+				},
+			},
+			{ new: true },
+		).lean();
+		return userUpdated;
+	}
 }
 
 export default UserRepository;
