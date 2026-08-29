@@ -47,7 +47,7 @@ La documentación y los testings fueron actualizados con estos nuevos endpoints 
 
 ## Cómo correr los tests de la API
 
-Los test para la api se realizaron con Mocha, Chai y Supertest, y se encuentran en la carpeta `./src/testing/` separados por tipo de test en carpetas y por modulo en archivos.
+Los test para la api se realizaron con Mocha, Chai y Supertest, y se encuentran en la carpeta `./testing/` separados por tipo de test en carpetas y por modulo en archivos.
 
 Actualmente en los testings se encuentran cubiertos los modulos de Users, Products, Orders, Deliveries y Couriers Adicionalmente se implementaron testing de la API de Upload para los modules Users y Deliveries. Tambien se encuentran testings para los endpoints de Mocking, test del logger, health check y para el middleware de manejo de errores. Suman en total 43 checks de testeo para la API.
 

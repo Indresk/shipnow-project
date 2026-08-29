@@ -25,7 +25,6 @@ for (const key of REQUIRES_ENV_VARS) {
 			styleText('red', 'fatal'),
 			`] ${envError.message} || metadata:${JSON.stringify(envError)}`,
 		);
-		process.exit(1);
 	}
 }
 
