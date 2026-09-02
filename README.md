@@ -1,5 +1,7 @@
 # ShipNow
 
+Este proyecto es una API RESTful para la gestión de envíos y entregas, construida con Node.js, Express y MongoDB. Proporciona endpoints para manejar usuarios, productos, órdenes, entregas y repartidores, así como funcionalidades de subida de archivos y generación de datos mock para pruebas.
+
 ## Como correr localmente este proyecto
 
 Requisitos: Node.js y setear previamente las varables de entorno con la MONGODB_URI.
@@ -16,7 +18,7 @@ npm run dev
 
 ## Cómo armar el .env para correr este proyecto
 
-El .env debe seguir la estrucutra propuesta en el archivo [.env.example](./.env.example).
+El .env debe seguir la estructura propuesta en el archivo [.env.example](./.env.example).
 
 ## Docker
 
@@ -34,9 +36,11 @@ Para facilitar el despliegue local con MongoDB puedes usar docker compose:
 - Inicia con: `docker-compose up -d`
 - Cerrar con: `docker-compose down`
 
+Nota: el docker-compose.yml está configurado para levantar un contenedor de MongoDB y otro de la API, con persistencia de datos en volúmenes locales. Si no se desea levantar MongoDB con Docker, se puede configurar la variable de entorno `MONGODB_URI` para apuntar a una instancia externa de MongoDB y comentar desde la linea 13 "depends_on" en el docker-compose.yml.
+
 ### Variables de Entorno en Producción
 
-Para ejecutar la API en producción, asegúrate de tener configuradas las siguientes variables en tu archivo `.env`:
+Para ejecutar la API en producción como imagen unicamente de la API desde el archivo `Dockerfile`, asegúrate de tener configuradas las siguientes variables en tu archivo `.env`:
 
 ```bash
 NODE_ENV=production
@@ -143,6 +147,16 @@ docker run -p 8080:8080 \
 
 Esto crea un volumen persistente llamado `shipnow-uploads`.
 
+### Health Check del Contenedor
+
+La API cuenta con el endpoint `/` para verificar que el contenedor está corriendo correctamente, puedes hacer un GET request a:
+
+```bash
+GET http://localhost:8080/
+```
+
+Esto retornará un JSON con el estado de la API.
+
 ### Ejecutar Tests en Contenedor
 
 Para ejecutar los tests dentro de un contenedor:
@@ -151,7 +165,7 @@ Para ejecutar los tests dentro de un contenedor:
 docker run --env-file .env.test shipnow-api npm run test
 ```
 
-**Nota importante**: Los tests utilizan `MongoDB Memory Server`, por lo que no necesitan una instancia de MongoDB externa.
+**Nota importante**: Los tests utiliza por defecto `MongoDB Memory Server`, por lo que no necesitan una instancia de MongoDB externa.
 
 ## Tecnologías Utilizadas
 
@@ -221,7 +235,11 @@ Los test para la api se realizaron con Mocha, Chai y Supertest, y se encuentran 
 
 Actualmente en los testings se encuentran cubiertos los modulos de Users, Products, Orders, Deliveries y Couriers Adicionalmente se implementaron testing de la API de Upload para los modules Users y Deliveries. Tambien se encuentran testings para los endpoints de Mocking, test del logger, health check y para el middleware de manejo de errores. Suman en total 43 checks de testeo para la API.
 
-Para ejecutar la suite de tests de la API, se deben tener preparadas las variables de entorno en el archivo `.env.test` siguiendo la estructura de `.env.test.example`, de igual manera se recomienda apuntar la URI de la base de datos en el archivo de variables de entorno hacia una **base de datos de prueba** para evitar daños en la base de datos principal.
+Para ejecutar la suite de tests de la API, debemos tener instaladas las dependencias de desarrollador, con esto podremos crear la instancia de `mongodb-memory-server` y ejecutar los test sin ninguna complicación.
+
+Si queremos tambien podemos probarlo con una base de dato de prueba, para ello se deben tener preparadas las variables de entorno en el archivo `.env.test` siguiendo la estructura de `.env.test.example`, de igual manera se recomienda apuntar la URI de la base de datos en el archivo de variables de entorno hacia una **base de datos de prueba** para evitar daños en la base de datos principal.
+
+Nota: si se desean correr los test con una base de datos real podemos descomentar la línea de dotenv en el archivo `./testing/setup.js` y comentar lo relacionado con `mongodb-memory-server` para que se conecte a la base de datos real.
 
 Con todo lo anterior listo se puede correr el siguiente comando:
 
