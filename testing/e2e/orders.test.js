@@ -34,13 +34,25 @@ describe('Orders API', () => {
 		priority: ORDER_PRIORITY.NORMAL,
 	});
 
-	it('Debe obtener la lista de ordenes actuales', async () => {
+	it('Debe obtener la lista de ordenes con paginación', async () => {
 		const [order] = await OrderMockService.generateAndInsert();
 		const response = await request(app).get('/api/orders');
 
 		expect(response.status).to.equal(200);
-		expect(response.body).to.be.an('array');
-		expect(response.body[0]).to.include.all.keys(
+		expect(response.body).to.be.an('object');
+		expect(response.body).to.include.all.keys(
+			'docs',
+			'totalDocs',
+			'limit',
+			'page',
+			'totalPages',
+			'hasNextPage',
+			'hasPrevPage',
+			'nextPage',
+			'prevPage',
+		);
+		expect(response.body.docs).to.be.an('array');
+		expect(response.body.docs[0]).to.include.all.keys(
 			'_id',
 			'items',
 			'courierId',

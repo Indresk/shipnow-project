@@ -5,6 +5,7 @@ import { ERROR_CODES } from '../errors/error.codes.js';
 
 dotenv.config();
 
+// Seteamos variables de entorno imprecindibles
 const REQUIRES_ENV_VARS = ['PORT', 'NODE_ENV', 'MONGODB_URI'];
 
 for (const key of REQUIRES_ENV_VARS) {
@@ -32,6 +33,8 @@ const config = {
 	PORT: process.env.PORT,
 	NODE_ENV: process.env.NODE_ENV,
 	MONGODB_URI: process.env.MONGODB_URI,
+	SERVER_START_TIME: Date.now(),
+	CLIENT_URL: process.env.CLIENT_URL,
 };
 
 Object.freeze(config);

@@ -4,7 +4,8 @@ import logger from '../utils/logger.js';
 class ProductsController {
 	static async getAll(req, res, next) {
 		try {
-			const products = await ProductsService.getAll();
+			const { limit, page } = req.query;
+			const products = await ProductsService.getPaginated({ limit, page });
 
 			res.status(200).json(products);
 		} catch (error) {

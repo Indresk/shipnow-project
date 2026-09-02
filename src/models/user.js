@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { USER_ROLES } from '../constants/index.js';
 import documentSchema from './documentSchema.js';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 // Modelo de User (cliente).
 const userSchema = new mongoose.Schema({
@@ -16,5 +17,7 @@ const userSchema = new mongoose.Schema({
 		default: [],
 	},
 });
+
+userSchema.plugin(mongoosePaginate);
 
 export default mongoose.model('User', userSchema);

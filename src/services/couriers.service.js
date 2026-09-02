@@ -9,6 +9,33 @@ class CouriersService {
 		return couriers;
 	}
 
+	static async getPaginated({ limit = 10, page = 1 }) {
+		const limitNum = Number(limit);
+		const pageNum = Number(page);
+
+		if (
+			!Number.isInteger(limitNum) ||
+			!Number.isInteger(pageNum) ||
+			limitNum <= 0 ||
+			pageNum <= 0
+		) {
+			throw new AppError(
+				ERROR_CODES.BAD_REQUEST,
+				'Información de paginación incorrecta. "limit" y "page" deben ser enteros positivos.',
+			);
+		}
+
+		const MAX_LIMIT = 100;
+		const safeLimit = Math.min(limitNum, MAX_LIMIT);
+
+		const couriers = await CouriersRepository.getPaginated({
+			limit: safeLimit,
+			page: pageNum,
+		});
+
+		return couriers;
+	}
+
 	static async getById(id) {
 		if (!id) throw new AppError(ERROR_CODES.BAD_REQUEST, 'Id no proporcionada');
 		if (!mongoose.isValidObjectId(id))

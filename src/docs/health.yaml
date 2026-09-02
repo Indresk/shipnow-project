@@ -1,13 +1,13 @@
 paths:
   /:
     get:
-      summary: Health check basico de la API
+      summary: Health check de la API con información de estado
       tags:
         - Health
       responses:
         '200':
-          description: Api corriendo exitosamente
+          description: API corriendo exitosamente con información de estado
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SuccessMessage'
+                $ref: '#/components/schemas/HealthResponse'

@@ -1,6 +1,8 @@
 import express from 'express';
 import { swaggerSpecs } from './docs/swagger.config.js';
 import swaggerUiExpress from 'swagger-ui-express';
+import cors from 'cors';
+import helmet from 'helmet';
 
 import ordersRouter from './routes/orders.js';
 import usersRouter from './routes/users.js';
@@ -20,7 +22,13 @@ import loggerMiddleware from './middlewares/logger.middleware.js';
 
 const app = express();
 
-// Middleware para parsear JSON.
+// Middlewares iniciales.
+app.use(helmet());
+app.use(
+	cors({
+		origin: config.CLIENT_URL || 'http://localhost:5173',
+	}),
+);
 app.use(express.json());
 app.use(loggerMiddleware);
 
@@ -31,7 +39,7 @@ app.use('/api/couriers', couriersRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/deliveries', deliveriesRouter);
 
-// Dejamos las rutas de Mock
+// Declaramos las rutas de Mock, docs y logger dejandolas solo accesibles cuando no estamos en Producción.
 
 if (config.NODE_ENV != ENVIRONMENT.PROD) {
 	app.use('/api/mocks', mocksRouter);
@@ -43,11 +51,22 @@ if (config.NODE_ENV != ENVIRONMENT.PROD) {
 	);
 }
 
-// Ruta de health check basica.
+// Ruta de health check con información detallada.
 app.get('/', (req, res) => {
-	res
-		.status(200)
-		.json({ status: 'success', message: 'ShipNow API v1 - corriendo' });
+	const uptime = Math.floor((Date.now() - config.SERVER_START_TIME) / 1000);
+	const uptimeFormatted = `${Math.floor(uptime / 3600)}h ${Math.floor((uptime % 3600) / 60)}m ${uptime % 60}s`;
+
+	res.status(200).json({
+		status: 'success',
+		message: 'ShipNow API v1 - corriendo',
+		apiState: 'operational',
+		environment: config.NODE_ENV,
+		uptime: {
+			seconds: uptime,
+			formatted: uptimeFormatted,
+		},
+		timestamp: new Date().toISOString(),
+	});
 });
 
 // Dejamos esuchando los middlewares de error

@@ -7,6 +7,11 @@ class UserRepository {
 		return users;
 	}
 
+	static async getPaginated({ limit, page }) {
+		const users = await User.paginate({}, { limit, page, lean: true });
+		return users;
+	}
+
 	static async getById(id) {
 		const user = await User.findById(id);
 		return user;

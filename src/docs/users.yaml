@@ -1,18 +1,40 @@
 paths:
   /api/users:
     get:
-      summary: Lista todos los usuarios
+      summary: Lista todos los usuarios con paginación
       tags:
         - Users
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 1
+            maximum: 100
+          description: Cantidad de items por página
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 1
+            minimum: 1
+          description: Número de página
       responses:
         '200':
-          description: Lista de usuarios
+          description: Lista paginada de usuarios
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/PaginatedUsers'
+        '400':
+          description: Parámetros de paginación inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '500':
           description: Error interno
           content:

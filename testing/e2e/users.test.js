@@ -7,19 +7,31 @@ import UserMockService from '../../src/mocks/services/users.mock.service.js';
 import { USER_ROLES } from '../../src/constants/index.js';
 
 describe('Users API', () => {
-	it('Debe listar usuarios con sus propiedades principales', async () => {
+	it('Debe listar usuarios con paginación', async () => {
 		const [user] = await UserMockService.generateAndInsert();
 		const response = await request(app).get('/api/users');
 
 		expect(response.status).to.equal(200);
-		expect(response.body).to.be.an('array').with.length(1);
-		expect(response.body[0]).to.include.all.keys(
+		expect(response.body).to.be.an('object');
+		expect(response.body).to.include.all.keys(
+			'docs',
+			'totalDocs',
+			'limit',
+			'page',
+			'totalPages',
+			'hasNextPage',
+			'hasPrevPage',
+			'nextPage',
+			'prevPage',
+		);
+		expect(response.body.docs).to.be.an('array').with.length(1);
+		expect(response.body.docs[0]).to.include.all.keys(
 			'_id',
 			'name',
 			'email',
 			'role',
 		);
-		expect(response.body[0]._id).to.equal(user.id);
+		expect(response.body.docs[0]._id).to.equal(user.id);
 	});
 
 	it('Debe crear un usuario válido', async () => {

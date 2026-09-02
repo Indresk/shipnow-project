@@ -6,13 +6,25 @@ import app from '../../src/app.js';
 import CourierMockService from '../../src/mocks/services/couriers.mock.service.js';
 
 describe('Couriers API', () => {
-	it('Debe listar repartidores con sus propiedades principales', async () => {
+	it('Debe listar repartidores con paginación', async () => {
 		const [courier] = await CourierMockService.generateAndInsert();
 		const response = await request(app).get('/api/couriers');
 
 		expect(response.status).to.equal(200);
-		expect(response.body).to.be.an('array');
-		expect(response.body[0]).to.include.all.keys(
+		expect(response.body).to.be.an('object');
+		expect(response.body).to.include.all.keys(
+			'docs',
+			'totalDocs',
+			'limit',
+			'page',
+			'totalPages',
+			'hasNextPage',
+			'hasPrevPage',
+			'nextPage',
+			'prevPage',
+		);
+		expect(response.body.docs).to.be.an('array');
+		expect(response.body.docs[0]).to.include.all.keys(
 			'_id',
 			'name',
 			'zone',

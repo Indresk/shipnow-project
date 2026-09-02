@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { DELIVERY_STATUS } from '../constants/index.js';
 import documentSchema from './documentSchema.js';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 // Modelo de Delivery (entrega: vincula un Order con un Courier).
 const deliverySchema = new mongoose.Schema({
@@ -17,5 +18,7 @@ const deliverySchema = new mongoose.Schema({
 		default: [],
 	},
 });
+
+deliverySchema.plugin(mongoosePaginate);
 
 export default mongoose.model('Delivery', deliverySchema);

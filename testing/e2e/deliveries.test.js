@@ -28,11 +28,23 @@ describe('Deliveries API', () => {
 		return { orderId: response.body.orderId, courierId: courier.id };
 	};
 
-	it('Debe listar entregas con sus propiedades principales', async () => {
+	it('Debe listar entregas con paginación', async () => {
 		const response = await request(app).get('/api/deliveries');
 
 		expect(response.status).to.equal(200);
-		expect(response.body).to.be.an('array');
+		expect(response.body).to.be.an('object');
+		expect(response.body).to.include.all.keys(
+			'docs',
+			'totalDocs',
+			'limit',
+			'page',
+			'totalPages',
+			'hasNextPage',
+			'hasPrevPage',
+			'nextPage',
+			'prevPage',
+		);
+		expect(response.body.docs).to.be.an('array');
 	});
 
 	it('Debe crear una entrega asignada a una orden y un courier', async () => {

@@ -4,7 +4,8 @@ import logger from '../utils/logger.js';
 class UserController {
 	static async getAll(req, res, next) {
 		try {
-			const users = await UserService.getAll();
+			const { limit, page } = req.query;
+			const users = await UserService.getPaginated({ limit, page });
 
 			res.status(200).json(users);
 		} catch (error) {

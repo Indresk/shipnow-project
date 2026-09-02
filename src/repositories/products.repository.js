@@ -6,6 +6,11 @@ class ProductsRepository {
 		return products;
 	}
 
+	static async getPaginated({ limit, page }) {
+		const products = await Product.paginate({}, { limit, page, lean: true });
+		return products;
+	}
+
 	static async getById(id) {
 		const product = await Product.findById(id);
 		return product;

@@ -12,6 +12,34 @@ class DeliveriesService {
 		const deliveries = await DeliveriesRepository.getAll();
 		return deliveries;
 	}
+
+	static async getPaginated({ limit = 10, page = 1 }) {
+		const limitNum = Number(limit);
+		const pageNum = Number(page);
+
+		if (
+			!Number.isInteger(limitNum) ||
+			!Number.isInteger(pageNum) ||
+			limitNum <= 0 ||
+			pageNum <= 0
+		) {
+			throw new AppError(
+				ERROR_CODES.BAD_REQUEST,
+				'Información de paginación incorrecta. "limit" y "page" deben ser enteros positivos.',
+			);
+		}
+
+		const MAX_LIMIT = 100;
+		const safeLimit = Math.min(limitNum, MAX_LIMIT);
+
+		const deliveries = await DeliveriesRepository.getPaginated({
+			limit: safeLimit,
+			page: pageNum,
+		});
+
+		return deliveries;
+	}
+
 	static async getById(id) {
 		const delivery = await DeliveriesRepository.getById(id);
 
@@ -25,6 +53,7 @@ class DeliveriesService {
 			tracking,
 		};
 	}
+
 	static async create({ orderId, courierId, status }) {
 		const currentDate = new Date();
 

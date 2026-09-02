@@ -1,0 +1,14 @@
+node_modules
+.env
+.env.*
+*.log
+/postman
+/logs/*
+seed.js
+DockerFile
+.dockerignore
+.git
+.gitignore
+/uploads/*
+docker-compose.yml
+/testing/collections

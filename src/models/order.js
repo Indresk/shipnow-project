@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { ORDER_STATUS, ORDER_PRIORITY } from '../constants/index.js';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 const orderItemSchema = new mongoose.Schema(
 	{
@@ -43,5 +44,7 @@ const orderSchema = new mongoose.Schema({
 	},
 	courierId: { type: mongoose.Schema.Types.ObjectId, ref: 'Courier' },
 });
+
+orderSchema.plugin(mongoosePaginate);
 
 export default mongoose.model('Order', orderSchema);

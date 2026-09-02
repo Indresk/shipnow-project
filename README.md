@@ -18,6 +18,176 @@ npm run dev
 
 El .env debe seguir la estrucutra propuesta en el archivo [.env.example](./.env.example).
 
+## Docker
+
+La API puede ser ejecutada en contenedores Docker para un despliegue consistente y escalable.
+
+### Requisitos para Docker
+
+- Docker instalado y corriendo
+- Docker Compose (opcional, para orquestación)
+
+### Docker Compose
+
+Para facilitar el despliegue local con MongoDB puedes usar docker compose:
+
+- Inicia con: `docker-compose up -d`
+- Cerrar con: `docker-compose down`
+
+### Variables de Entorno en Producción
+
+Para ejecutar la API en producción, asegúrate de tener configuradas las siguientes variables en tu archivo `.env`:
+
+```bash
+NODE_ENV=production
+PORT=8080
+MONGODB_URI=mongodb+srv://user:password@cluster.mongodb.net/shipnow
+```
+
+**Importante**: En producción:
+
+- Configura `NODE_ENV=production` para desactivar endpoints de desarrollo como `/api/mocks` y `/api/logger`
+- Swagger no estará disponible en `/api/docs`
+
+### Construir la Imagen Docker
+
+Usa el script incluido en `package.json`:
+
+```bash
+npm run docker:build
+```
+
+O construye manualmente:
+
+```bash
+docker build -t shipnow-api .
+```
+
+### Ejecutar el Contenedor
+
+Usa el script incluido:
+
+```bash
+npm run docker:run
+```
+
+O ejecuta manualmente con variables de entorno:
+
+```bash
+docker run -p 8080:8080 --env-file .env shipnow-api
+```
+
+Para ejecutar en producción:
+
+```bash
+docker run -p 8080:8080 \
+  -e NODE_ENV=production \
+  -e MONGODB_URI=mongodb+srv://user:password@cluster.mongodb.net/shipnow \
+  -v shipnow-logs:/app/logs \
+  -v shipnow-uploads:/app/uploads \
+  shipnow-api
+```
+
+### Puerto de la API
+
+La API expone el puerto **8080** por defecto (configurable con la variable `PORT`).
+
+Accede a la API en: `http://localhost:8080`
+
+### Archivos excluidos del contenedor (.dockerignore)
+
+Los siguientes archivos y carpetas **no se incluyen** en la imagen Docker:
+
+```
+node_modules
+.env (los secretos deben inyectarse en tiempo de ejecución)
+.env.* (archivos de configuración local)
+*.log (logs locales)
+/logs/* (carpeta de logs - se crea en el contenedor)
+/uploads/* (carpeta de uploads - se crea en el contenedor)
+.git
+.gitignore
+.dockerignore
+Dockerfile
+seed.js
+/postman
+docker-compose.yml
+/testing/collections
+```
+
+### Gestión de Logs en Docker
+
+En producción, los logs se guardan en la carpeta `/app/logs` dentro del contenedor. Para persistir estos logs:
+
+```bash
+docker run -p 8080:8080 \
+  --env-file .env \
+  -v shipnow-logs:/app/logs \
+  shipnow-api
+```
+
+Esto crea un volumen persistente llamado `shipnow-logs` donde se almacenan los logs.
+
+Solo se guardan en archivos los niveles `error` y `fatal`. El archivo de logs rota diariamente y se elimina después de 14 días.
+
+### Gestión de Uploads en Docker
+
+Los archivos subidos (documentos de usuarios, pruebas de entregas, licencias de couriers) se guardan en `/app/uploads`. Para persistir estos archivos:
+
+```bash
+docker run -p 8080:8080 \
+  --env-file .env \
+  -v shipnow-uploads:/app/uploads \
+  shipnow-api
+```
+
+Esto crea un volumen persistente llamado `shipnow-uploads`.
+
+### Ejecutar Tests en Contenedor
+
+Para ejecutar los tests dentro de un contenedor:
+
+```bash
+docker run --env-file .env.test shipnow-api npm run test
+```
+
+**Nota importante**: Los tests utilizan `MongoDB Memory Server`, por lo que no necesitan una instancia de MongoDB externa.
+
+## Tecnologías Utilizadas
+
+### Backend & Runtime
+
+- **Node.js** (v22+) - Runtime de JavaScript
+- **Express.js** - Framework web minimalista
+- **MongoDB** - Base de datos NoSQL
+- **Mongoose** - ODM para MongoDB
+
+### Utilidades & Middlewares
+
+- **Multer** - Manejo de subida de archivos
+- **Helmet** - Seguridad HTTP
+- **CORS** - Control de acceso cross-origin
+- **dotenv** - Gestión de variables de entorno
+
+### Documentación & Testing
+
+- **Swagger/OpenAPI** - Documentación interactiva de API
+- **Swagger-UI-Express** - Interfaz Swagger en Express
+- **Mocha** - Framework de testing
+- **Chai** - Librería de assertions
+- **Supertest** - Testing de HTTP
+- **MongoDB Memory Server** - Base de datos en memoria para tests
+
+### Logging & Monitoreo
+
+- **Winston** - Logger versátil
+- **Winston-Daily-Rotate-File** - Rotación diaria de logs
+
+### Desarrollo
+
+- **Faker.js** - Generación de datos mock
+- **Node Watch** - Recarga automática en desarrollo
+
 ## API de subida de archivos para Users y Deliveries
 
 Para los modelos Users y Deliveries se encuentra implementada una API de subida de archivos con [Multer](https://www.npmjs.com/package/multer) para poder subir documentos y pruebas de entregas respectivamente.

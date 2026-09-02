@@ -7,20 +7,32 @@ import ProductMockService from '../../src/mocks/services/products.mock.service.j
 import { PRODUCT_STATUS } from '../../src/constants/index.js';
 
 describe('Products API', () => {
-	it('Debe listar productos con sus propiedades principales', async () => {
+	it('Debe listar productos con paginación', async () => {
 		const [product] = await ProductMockService.generateAndInsert();
 		const response = await request(app).get('/api/products');
 
 		expect(response.status).to.equal(200);
-		expect(response.body).to.be.an('array').with.length(1);
-		expect(response.body[0]).to.include.all.keys(
+		expect(response.body).to.be.an('object');
+		expect(response.body).to.include.all.keys(
+			'docs',
+			'totalDocs',
+			'limit',
+			'page',
+			'totalPages',
+			'hasNextPage',
+			'hasPrevPage',
+			'nextPage',
+			'prevPage',
+		);
+		expect(response.body.docs).to.be.an('array').with.length(1);
+		expect(response.body.docs[0]).to.include.all.keys(
 			'_id',
 			'name',
 			'price',
 			'stock',
 			'status',
 		);
-		expect(response.body[0]._id).to.equal(product.id);
+		expect(response.body.docs[0]._id).to.equal(product.id);
 	});
 
 	it('Debe crear un producto válido', async () => {

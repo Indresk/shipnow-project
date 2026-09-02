@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { PRODUCT_STATUS } from '../constants/index.js';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 // Modelo de Product (producto del catalogo).
 const productSchema = new mongoose.Schema({
@@ -12,5 +13,7 @@ const productSchema = new mongoose.Schema({
 		default: PRODUCT_STATUS.OUT_OF_STOCK,
 	}, // available | out_of_stock
 });
+
+productSchema.plugin(mongoosePaginate);
 
 export default mongoose.model('Product', productSchema);

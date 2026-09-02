@@ -6,6 +6,11 @@ class OrdersRepository {
 		return allOrders;
 	}
 
+	static async getPaginated({ limit, page }) {
+		const orders = await Order.paginate({}, { limit, page, lean: true });
+		return orders;
+	}
+
 	static async getById(id) {
 		const selectedOrder = await Order.findById(id);
 		return selectedOrder;

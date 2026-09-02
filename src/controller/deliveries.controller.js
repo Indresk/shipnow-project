@@ -4,7 +4,8 @@ import logger from '../utils/logger.js';
 class DeliveriesController {
 	static async getAll(req, res, next) {
 		try {
-			const deliveries = await DeliveriesService.getAll();
+			const { limit, page } = req.query;
+			const deliveries = await DeliveriesService.getPaginated({ limit, page });
 
 			res.status(200).json(deliveries);
 		} catch (error) {

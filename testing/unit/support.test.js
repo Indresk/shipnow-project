@@ -10,7 +10,25 @@ describe('Revision de rutas de soporte', () => {
 
 		expect(response.status).to.equal(200);
 		expect(response.body.status).to.equal('success');
-		expect(response.body).to.have.property('message');
+		expect(response.body).to.include.all.keys(
+			'status',
+			'message',
+			'apiState',
+			'environment',
+			'uptime',
+			'timestamp',
+		);
+		expect(response.body.apiState).to.equal('operational');
+		expect(response.body.environment).to.be.a('string');
+		expect(response.body.uptime).to.be.an('object');
+		expect(response.body.uptime).to.include.all.keys('seconds', 'formatted');
+		expect(response.body.uptime.seconds)
+			.to.be.a('number')
+			.greaterThanOrEqual(0);
+		expect(response.body.uptime.formatted).to.be.a('string');
+		expect(response.body.timestamp).to.be.a('string');
+
+		expect(() => new Date(response.body.timestamp)).to.not.throw();
 	});
 
 	it('Debe generar todos los niveles de log esperados', async () => {

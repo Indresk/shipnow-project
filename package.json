@@ -7,7 +7,9 @@
 	"scripts": {
 		"start": "node src/index.js",
 		"dev": "node --watch src/index.js",
-		"test": "mocha --file ./testing/setup.js \"./testing/**/*.test.js\" --timeout 10000"
+		"test": "mocha --file ./testing/setup.js \"./testing/**/*.test.js\" --timeout 10000",
+		"docker:build": "docker build -t shipnow-api .",
+		"docker:run": "docker run -p 8080:8080 --env-file .env shipnow-api"
 	},
 	"keywords": [
 		"coderhouse",
@@ -19,9 +21,12 @@
 	"author": "CoderHouse",
 	"license": "ISC",
 	"dependencies": {
+		"cors": "^2.8.6",
 		"dotenv": "^17.4.2",
 		"express": "^4.19.2",
+		"helmet": "^8.3.0",
 		"mongoose": "^8.4.0",
+		"mongoose-paginate-v2": "^1.9.5",
 		"multer": "^2.2.0",
 		"swagger-jsdoc": "^6.3.0",
 		"swagger-ui-express": "^5.0.1",

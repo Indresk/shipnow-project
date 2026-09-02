@@ -6,6 +6,11 @@ class CouriersRepository {
 		return couriers;
 	}
 
+	static async getPaginated({ limit, page }) {
+		const couriers = await Courier.paginate({}, { limit, page, lean: true });
+		return couriers;
+	}
+
 	static async getById(id) {
 		const courier = await Courier.findById(id);
 		return courier;

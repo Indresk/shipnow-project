@@ -10,6 +10,42 @@ components:
           type: string
           example: ShipNow API v1 - corriendo
 
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        message:
+          type: string
+          example: ShipNow API v1 - corriendo
+        apiState:
+          type: string
+          example: operational
+          description: Estado actual de la API
+        environment:
+          type: string
+          example: development
+          description: Entorno de ejecución (development, testing, production)
+        uptime:
+          type: object
+          properties:
+            seconds:
+              type: integer
+              example: 245
+              description: Uptime en segundos
+            formatted:
+              type: string
+              example: 0h 4m 5s
+              description: Uptime en formato legible
+          required: [seconds, formatted]
+        timestamp:
+          type: string
+          format: date-time
+          example: '2026-09-02T00:22:24.268Z'
+          description: Marca de tiempo ISO 8601 del momento de la consulta
+      required: [status, message, apiState, environment, uptime, timestamp]
+
     ErrorResponse:
       type: object
       properties:
@@ -198,3 +234,133 @@ components:
         name: Juan Repartidor
         zone: CABA
         available: true
+
+    PaginatedCouriers:
+      type: object
+      properties:
+        docs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Courier'
+        totalDocs:
+          type: integer
+        limit:
+          type: integer
+        page:
+          type: integer
+        totalPages:
+          type: integer
+        hasNextPage:
+          type: boolean
+        hasPrevPage:
+          type: boolean
+        nextPage:
+          type: integer
+          nullable: true
+        prevPage:
+          type: integer
+          nullable: true
+
+    PaginatedProducts:
+      type: object
+      properties:
+        docs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        totalDocs:
+          type: integer
+        limit:
+          type: integer
+        page:
+          type: integer
+        totalPages:
+          type: integer
+        hasNextPage:
+          type: boolean
+        hasPrevPage:
+          type: boolean
+        nextPage:
+          type: integer
+          nullable: true
+        prevPage:
+          type: integer
+          nullable: true
+
+    PaginatedOrders:
+      type: object
+      properties:
+        docs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+        totalDocs:
+          type: integer
+        limit:
+          type: integer
+        page:
+          type: integer
+        totalPages:
+          type: integer
+        hasNextPage:
+          type: boolean
+        hasPrevPage:
+          type: boolean
+        nextPage:
+          type: integer
+          nullable: true
+        prevPage:
+          type: integer
+          nullable: true
+
+    PaginatedDeliveries:
+      type: object
+      properties:
+        docs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Delivery'
+        totalDocs:
+          type: integer
+        limit:
+          type: integer
+        page:
+          type: integer
+        totalPages:
+          type: integer
+        hasNextPage:
+          type: boolean
+        hasPrevPage:
+          type: boolean
+        nextPage:
+          type: integer
+          nullable: true
+        prevPage:
+          type: integer
+          nullable: true
+
+    PaginatedUsers:
+      type: object
+      properties:
+        docs:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        totalDocs:
+          type: integer
+        limit:
+          type: integer
+        page:
+          type: integer
+        totalPages:
+          type: integer
+        hasNextPage:
+          type: boolean
+        hasPrevPage:
+          type: boolean
+        nextPage:
+          type: integer
+          nullable: true
+        prevPage:
+          type: integer
+          nullable: true
